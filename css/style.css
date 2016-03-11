@@ -2,13 +2,19 @@
     By CASA group for CM2003
  */
 
+
 body{
     background-color: #59323C;
     font-family: "Old English";
     color: #F2EEB3;
+    background-image: url("../img/wood.jpg");
 }
 
 
+/*
+    Navigation
+    Area where the team logo and the app title go
+*/
 nav {
     min-height: 5vh;
     font-family: "Old English Text MT";
@@ -18,17 +24,43 @@ nav {
     color: #F2EEB3;
     text-decoration: none;
 }
+.brand:hover{
+    /*TODO change this colour to something better*/
+    color: white;
+}
 .logo{
-    height: 5vh;
+    height: 10vh;
     width: auto;
 }
-
-
-
-#content{
+/*
+    Content
+    NEED TO MAKE THIS A GENERIC CLASS THAT
+    CAN BE USED FOR ANY CONTENT
+*/
+.content{
     color: #F2EEB3;
     background-color: #BFAF80;
-    border: solid 0.15em #8C6954;
-    border-radius: 1em;
-    box-shadow: 5px 5px 5px #260126;
+    border: solid 0.13em #59323C;
+    border-radius: 0.5em;
+    box-shadow: 1em 1em 1em #260126;
+    padding: 1em;
+}
+/*
+    TitleHr
+    This is a title that looks like it has a <hr>
+    on each side
+*/
+.titleHr {
+    border-top: 1px solid #8C6954;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    display: block;
+    text-align: center;
+    color: #F2EEB3;
+}
+
+.titleHr legend {
+    padding: 5px 10px;
+    font-size: 20px;
 }
