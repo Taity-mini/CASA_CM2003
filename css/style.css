@@ -16,8 +16,8 @@ nav {
     min-height: 5vh;
 }
 .logo{
-    height: 10vh;
-    width: auto;
+    height: 15vh;
+    width: 15vh;
 }
 .siteTitle{
     font-size: 5vh;
@@ -83,6 +83,9 @@ nav {
     cursor: pointer;
     box-sizing: border-box;
 }
+.button:hover{
+    background-color: #260126;
+}
 
 
 /*
@@ -99,5 +102,4 @@ nav {
 .text-right {
     text-align: right;
 }
-
 
