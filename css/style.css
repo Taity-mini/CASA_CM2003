@@ -4,7 +4,7 @@
 
 body{
     background-color: #59323C;
-    font-family: "Old English";
+    font-family: "Old English","serif";
     color: #F2EEB3;
     background-image: url("../img/wood.jpg");
 }
@@ -27,11 +27,10 @@ a:hover{
     Area where the team logo and the app title go
 */
 nav {
-    min-height: 5vh;
 }
 .siteTitle{
-    font-size: 5vh;
-    font-family: "Old English Text MT";
+    font-size: 2em;
+    font-family: "Old English Text MT","serif";
     color: white;
 }
 .siteTitle:hover{
@@ -42,19 +41,17 @@ nav {
     Footer
 */
 footer{
-
+    /*height: 5em;*/
 }
 footer ul{
     list-style: none;
 }
-
-footer .content > *{
+footer > *{
     display: inline-block;
 }
 .footerLogo{
-    height: 15vh;
-    width: 15vh;
     float: right;
+    height: 5em;
 }
 
 /*
@@ -86,6 +83,7 @@ footer .content > *{
     color: white!important;
 }
 .blackboardButton{
+    color: white!important;
     background-color: black!important;
     border: 1px solid white!important;
 }
@@ -139,6 +137,7 @@ footer .content > *{
 }
 .button:hover{
     background-color: #260126;
+    color: #F2EEB3;
 }
 
 
