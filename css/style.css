@@ -8,6 +8,20 @@ body{
     color: #F2EEB3;
     background-image: url("../img/wood.jpg");
 }
+
+/*
+    A(Hypertext Links) tag override
+*/
+a{
+    text-decoration: none;
+}
+a:visited{
+    color: inherit;
+}
+a:hover{
+    color: black;
+}
+
 /*
     Navigation
     Area where the team logo and the app title go
@@ -15,19 +29,34 @@ body{
 nav {
     min-height: 5vh;
 }
-.logo{
-    height: 15vh;
-    width: 15vh;
-}
 .siteTitle{
     font-size: 5vh;
     font-family: "Old English Text MT";
-    color: #F2EEB3;
-    text-decoration: none;
+    color: white;
 }
 .siteTitle:hover{
     color: white;
 }
+
+/*
+    Footer
+*/
+footer{
+
+}
+footer ul{
+    list-style: none;
+}
+
+footer .content > *{
+    display: inline-block;
+}
+.footerLogo{
+    height: 15vh;
+    width: 15vh;
+    float: right;
+}
+
 /*
     Content
     NEED TO MAKE THIS A GENERIC CLASS THAT
@@ -41,6 +70,31 @@ nav {
     box-shadow: 1em 1em 1em #260126;
     padding: 1em;
 }
+
+
+/*
+    BLACKBOARD
+*/
+.blackboard{
+    background-color: black;
+    /*background-image: url("../img/cb.png");*/
+    border: 1em ridge #8C6954;
+    padding: 1em;
+}
+.blackboardTitleHr{
+    border-top: 1px solid white!important;
+    color: white!important;
+}
+.blackboardButton{
+    background-color: black!important;
+    border: 1px solid white!important;
+}
+.blackboardButton:hover{
+    background-color: white!important;
+    color: black!important;
+}
+
+
 /*
     TitleHr
     This is a title that looks like it has a <hr>
