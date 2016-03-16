@@ -143,6 +143,16 @@ input[type="button"]:focus {
     background-color: white;
     color: black;
 }
+
+.button-left{
+    float:left;
+}
+
+.button-right{
+    float:right;
+}
+
+
 /*
     Text Alignment classes
 */
@@ -157,6 +167,8 @@ input[type="button"]:focus {
 .text-right {
     text-align: right;
 }
+
+
 
 
 
