@@ -5,8 +5,23 @@
 body{
     background-color: #59323C;
     font-family: "Old English","serif";
-    color: #F2EEB3;
     background-image: url("../img/wood.jpg");
+}
+
+
+/*
+    Navigation
+    Area where the team logo and the app title go
+*/
+nav {
+}
+.siteTitle{
+    font-size: 2em;
+    font-family: "Old English Text MT","serif";
+    color: #F2EEB3;
+}
+.siteTitle:hover{
+    color: white;
 }
 
 /*
@@ -19,21 +34,9 @@ a:visited{
     color: inherit;
 }
 a:hover{
-    color: black;
-}
-
-/*
-    Navigation
-    Area where the team logo and the app title go
-*/
-nav {
-}
-.siteTitle{
-    font-size: 2em;
-    font-family: "Old English Text MT","serif";
     color: white;
 }
-.siteTitle:hover{
+a:visited{
     color: white;
 }
 
@@ -41,7 +44,7 @@ nav {
     Footer
 */
 footer{
-    /*height: 5em;*/
+
 }
 footer ul{
     list-style: none;
@@ -53,45 +56,14 @@ footer > *{
     float: right;
     height: 5em;
 }
-
-/*
-    Content
-    NEED TO MAKE THIS A GENERIC CLASS THAT
-    CAN BE USED FOR ANY CONTENT
-*/
-.content{
-    color: #F2EEB3;
-    background-color: #BFAF80;
-    border: solid 0.13em #59323C;
-    border-radius: 0.5em;
-    box-shadow: 1em 1em 1em #260126;
-    padding: 1em;
-}
-
-
 /*
     BLACKBOARD
 */
 .blackboard{
     background-color: black;
-    /*background-image: url("../img/cb.png");*/
     border: 1em ridge #8C6954;
     padding: 1em;
 }
-.blackboardTitleHr{
-    border-top: 1px solid white!important;
-    color: white!important;
-}
-.blackboardButton{
-    color: white!important;
-    background-color: black!important;
-    border: 1px solid white!important;
-}
-.blackboardButton:hover{
-    background-color: white!important;
-    color: black!important;
-}
-
 
 /*
     TitleHr
@@ -99,28 +71,44 @@ footer > *{
     on each side
 */
 .titleHr {
-    border-top: 1px solid #8C6954;
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
-    display: block;
-    color: #59323C;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
 }
-
-.titleHr legend {
-    padding: 5px 10px;
-    font-size: 20px;
+.titleHr span {
+    font-size: 30px;
+    background: black;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+.titleHr:before {
+    background: white;
+    content: "";
+    display: block;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.titleHr:before {
+    left: 0;
 }
 
 /*
     Button
     This is a basic button class
 */
-.button{
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
     display: inline-block;
     height: 38px;
     padding: 0 30px;
-    color: #F2EEB3;
+    color: #555;
     text-align: center;
     font-size: 11px;
     font-weight: 700;
@@ -129,18 +117,31 @@ footer > *{
     text-transform: uppercase;
     text-decoration: none;
     white-space: nowrap;
-    background-color: #8C6954;
+    background-color: transparent;
     border-radius: 4px;
-    border: 1px solid #260126;
+    border: 1px solid #bbb;
     cursor: pointer;
-    box-sizing: border-box;
+    box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+    color: #333;
+    border-color: #888;
+    outline: 0; }
+.button-blackboard{
+    color: white;
 }
-.button:hover{
-    background-color: #260126;
-    color: #F2EEB3;
+.button-blackboard:hover {
+    background-color: white;
+    color: black;
 }
-
-
 /*
     Text Alignment classes
 */
@@ -155,4 +156,7 @@ footer > *{
 .text-right {
     text-align: right;
 }
+
+
+
 
