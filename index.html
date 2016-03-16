@@ -2,9 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+
+    <title>CASA Pub Crawl</title>
+
+    <!--Unsemantic framework CSS-->
+    <link rel="stylesheet" href="css/unsemantic-grid-responsive.css">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
- <h1>hello</h1>
+    <nav class="grid-container text-center">
+        <h1>
+            <a class="siteTitle" href="">Pub Crawl</a>
+        </h1>
+    </nav>
+
+    <div class="grid-container blackboard">
+            <fieldset class="titleHr blackboardTitleHr text-center">
+                <legend>Choose a route</legend>
+            </fieldset>
+            <div class="text-center">
+                <a href="generate" class="button blackboardButton">Generate Route</a>
+            </div>
+            <div class="text-center">
+                <a href="create" class="button blackboardButton">Create Route</a>
+            </div>
+            <div class="text-center">
+                <a href="view" class="button blackboardButton">View Previous Route</a>
+            </div>
+    </div>
+
+    <div class="grid-container content">
+        <fieldset class="titleHr text-center">
+            <legend>Choose a route</legend>
+        </fieldset>
+        <div class="text-center">
+            <a href="generate" class="button">Generate Route</a>
+        </div>
+        <div class="text-center">
+            <a href="create" class="button">Create Route</a>
+        </div>
+        <div class="text-center">
+            <a href="view" class="button">View Previous Route</a>
+        </div>
+    </div>
+
+    <footer class="grid-container content">
+        <div class="grid-50">
+            <ul>
+                <li><a href="">Terms and Conditions</a></li>
+                <li><a href="">Link</a></li>
+                <li><a href="">Link</a></li>
+            </ul>
+        </div>
+        <div class="grid-50">
+            <img class="footerLogo" src="img/tinified/house1text3.png">
+        </div>
+    </footer>
+
+
 </body>
 </html>
