@@ -60,6 +60,7 @@ footer > *{
     BLACKBOARD
 */
 .blackboard{
+    color: white;
     background-color: black;
     border: 1em ridge #8C6954;
     padding: 1em;
