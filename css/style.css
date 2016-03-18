@@ -71,7 +71,7 @@ footer > *{
     TitleHr
     This is a title that looks like it has a <hr>
     on each side
-*/
+
 .titleHr {
     position: relative;
     text-align: center;
@@ -96,6 +96,41 @@ footer > *{
 }
 .titleHr:before {
     left: 0;
+
+*/
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.strike > span {
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    padding: 0 15px;
+}
+
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: white;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
 }
 
 /*
