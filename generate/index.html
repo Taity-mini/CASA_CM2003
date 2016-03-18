@@ -21,6 +21,7 @@
         </div>
 
         <div class="grid-container text-center">
+            <form action=".#" method="GET">
             <p>Location <input></p>
             <p>Number of Pubs <input></p>
             <p>Crawl Name <input></p>
@@ -28,12 +29,18 @@
                 <input class="button-blackboard" type="button" value="Reset">
                 <input class="button-blackboard" type="button" value="Submit">
             </div>
+            </form>
         </div>
 
         <div class="grid-container">
-            <div class="titleHr">
+            <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
+            <div class="grid-container text-center">
+                <form action="../display/index.html" method="GET">
+                    <input class="button button-blackboard" type="submit" value="Generate Route">
+                </form>
+         </div>
         </div>
     </div>
     <footer class="grid-container">
