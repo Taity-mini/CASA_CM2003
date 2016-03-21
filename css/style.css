@@ -1,13 +1,18 @@
 /*  Pub Crawl web app StyleSheet
     By CASA group for CM2003
  */
-
 body{
     background-color: #59323C;
-    font-family: "Old English","serif";
+    font-family: "chawp","serif";
     background-image: url("../img/wood.jpg");
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-
+/*
+    CUSTOM FONT
+*/
+@font-face { font-family: chawp; src: url('font/chawp.otf'); }
 /*
     Navigation
     Area where the team logo and the app title go
@@ -17,7 +22,6 @@ nav {
 .site-title img{
     width: 20vh;
 }
-
 /*
     A(Hypertext Links) tag override
 */
@@ -33,12 +37,11 @@ a:hover{
 a:visited{
     color: white;
 }
-
 /*
     Footer
 */
 footer{
-
+    font-family: serif;
 }
 footer ul{
     list-style: none;
@@ -51,6 +54,13 @@ footer > *{
     height: 5em;
 }
 /*
+    MAP
+*/
+#map{
+    height: 50vh;
+}
+
+/*
     BLACKBOARD
 */
 .blackboard{
@@ -62,17 +72,16 @@ footer > *{
     background-size:100%
 
 }
-
 /*
     Strike
     This is a title that looks like it has a <hr> on each side
 */
-
 .strike {
     display: block;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
+    margin-bottom: 1em ;
 }
 
 .strike > span {
@@ -101,7 +110,6 @@ footer > *{
     left: 100%;
     margin-left: 15px;
 }
-
 /*
     Button
     This is a basic button class
@@ -141,7 +149,7 @@ input[type="button"]:focus {
     border-color: #888;
     outline: 0; }
 .button-blackboard{
-    font-family: "Old English", "serif";
+    font-family: "chawp", "serif";
     color: white;
 }
 .button-blackboard:hover {
@@ -156,8 +164,6 @@ input[type="button"]:focus {
 .button-right{
     float:right;
 }
-
-
 /*
     Text Alignment classes
 */
