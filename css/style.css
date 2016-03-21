@@ -14,12 +14,8 @@ body{
 */
 nav {
 }
-.siteTitle{
-    font-size: 2em;
-    font-family: "Old English Text MT","serif";
-}
-.siteTitle:hover{
-    color: #F2EEB3;
+.site-title img{
+    width: 20vh;
 }
 
 /*
@@ -68,35 +64,8 @@ footer > *{
 }
 
 /*
-    TitleHr
-    This is a title that looks like it has a <hr>
-    on each side
-
-.titleHr {
-    position: relative;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.titleHr span {
-    font-size: 30px;
-    background: black;
-    padding: 0 15px;
-    position: relative;
-    z-index: 1;
-    color: white;
-}
-.titleHr:before {
-    background: white;
-    content: "";
-    display: block;
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-}
-.titleHr:before {
-    left: 0;
-
+    Strike
+    This is a title that looks like it has a <hr> on each side
 */
 
 .strike {
