@@ -1,14 +1,38 @@
 /*  Pub Crawl web app StyleSheet
     By CASA group for CM2003
  */
-
 body{
     background-color: #59323C;
-    font-family: "Old English","serif";
-    color: #F2EEB3;
+    font-family: "chawp","serif";
     background-image: url("../img/wood.jpg");
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-
+/*
+    CUSTOM FONT
+    @font-face { font-family: chawp; src: url('http://tm.wildman-productions.org/font/chawp.otf'); }
+*/
+@font-face {
+    font-family: 'chawp';
+    src: url('font/chawp-webfont.eot');
+    src: url('font/chawp-webfont.eot?#iefix') format('embedded-opentype'),
+    url('font/chawp-webfont.woff2') format('woff2'),
+    url('font/chawp-webfont.woff') format('woff'),
+    url('font/chawp-webfont.ttf') format('truetype'),
+    url('font/chawp-webfont.svg#chawpregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*
+    Navigation
+    Area where the team logo and the app title go
+*/
+nav {
+}
+.site-title img{
+    width: 20vh;
+}
 /*
     A(Hypertext Links) tag override
 */
@@ -19,29 +43,16 @@ a:visited{
     color: inherit;
 }
 a:hover{
-    color: black;
-}
-
-/*
-    Navigation
-    Area where the team logo and the app title go
-*/
-nav {
-}
-.siteTitle{
-    font-size: 2em;
-    font-family: "Old English Text MT","serif";
     color: white;
 }
-.siteTitle:hover{
+a:visited{
     color: white;
 }
-
 /*
     Footer
 */
 footer{
-    /*height: 5em;*/
+    font-family: serif;
 }
 footer ul{
     list-style: none;
@@ -49,78 +60,86 @@ footer ul{
 footer > *{
     display: inline-block;
 }
-.footerLogo{
+.footer-logo{
     float: right;
-    height: 5em;
+    height: 100px;
+    width: 100px;
+    background: transparent url('../img/tinified/house1text3.png') no-repeat;
+    background-size: 100%;
 }
-
+.footer-logo:hover{
+    background: transparent url('../img/tinified/house3text3.png') no-repeat;
+    background-size: 100%;
+}
 /*
-    Content
-    NEED TO MAKE THIS A GENERIC CLASS THAT
-    CAN BE USED FOR ANY CONTENT
+    MAP
 */
-.content{
-    color: #F2EEB3;
-    background-color: #BFAF80;
-    border: solid 0.13em #59323C;
-    border-radius: 0.5em;
-    box-shadow: 1em 1em 1em #260126;
-    padding: 1em;
+#map{
+    height: 50vh;
 }
-
 
 /*
     BLACKBOARD
 */
 .blackboard{
+    color: white;
     background-color: black;
-    /*background-image: url("../img/cb.png");*/
     border: 1em ridge #8C6954;
     padding: 1em;
-}
-.blackboardTitleHr{
-    border-top: 1px solid white!important;
-    color: white!important;
-}
-.blackboardButton{
-    color: white!important;
-    background-color: black!important;
-    border: 1px solid white!important;
-}
-.blackboardButton:hover{
-    background-color: white!important;
-    color: black!important;
-}
+    background-image: url("../img/chalkboard-black.jpg");
+    background-size:100%
 
-
+}
 /*
-    TitleHr
-    This is a title that looks like it has a <hr>
-    on each side
+    Strike
+    This is a title that looks like it has a <hr> on each side
 */
-.titleHr {
-    border-top: 1px solid #8C6954;
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
+.strike {
     display: block;
-    color: #59323C;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 1em ;
 }
 
-.titleHr legend {
-    padding: 5px 10px;
-    font-size: 20px;
+.strike > span {
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    padding: 0 15px;
 }
 
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: white;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}
 /*
     Button
     This is a basic button class
 */
-.button{
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
     display: inline-block;
     height: 38px;
     padding: 0 30px;
-    color: #F2EEB3;
     text-align: center;
     font-size: 11px;
     font-weight: 700;
@@ -129,18 +148,40 @@ footer > *{
     text-transform: uppercase;
     text-decoration: none;
     white-space: nowrap;
-    background-color: #8C6954;
+    background-color: black;
     border-radius: 4px;
-    border: 1px solid #260126;
+    border: 1px solid #bbb;
     cursor: pointer;
-    box-sizing: border-box;
+    box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+    color: #333;
+    border-color: #888;
+    outline: 0; }
+.button-blackboard{
+    font-family: "chawp", "serif";
+    color: white;
 }
-.button:hover{
-    background-color: #260126;
-    color: #F2EEB3;
+.button-blackboard:hover {
+    background-color: white;
+    color: black;
 }
 
+.button-left{
+    float:left;
+}
 
+.button-right{
+    float:right;
+}
 /*
     Text Alignment classes
 */
@@ -155,4 +196,3 @@ footer > *{
 .text-right {
     text-align: right;
 }
-

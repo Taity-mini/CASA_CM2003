@@ -2,9 +2,58 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
-    <title>Title</title>
+    <title>Generate Route</title>
+
+    <!--Unsemantic framework CSS-->
+    <link rel="stylesheet" href="../css/unsemantic-grid-responsive.css">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <h1>GENERATE PAGE</h1>
+    <nav class="grid-container text-center">
+        <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
+    </nav>
+
+    <div class="grid-container blackboard">
+        <div class="strike">
+            <span>Create A Route</span>
+        </div>
+
+        <div class="grid-container text-center">
+            <form action=".#" method="GET">
+            <p>Location <input></p>
+            <p>Number of Pubs <input></p>
+            <p>Crawl Name <input></p>
+            <div class="grid-container">
+                <input class="button-blackboard" type="button" value="Reset">
+                <input class="button-blackboard" type="button" value="Submit">
+            </div>
+            </form>
+        </div>
+
+        <div class="grid-container">
+            <div class="strike">
+                <span>Pub Crawl Route</span>
+            </div>
+            <div class="grid-container text-center">
+                <form action="../display" method="GET">
+                    <input class="button button-blackboard" type="submit" value="Generate Route">
+                </form>
+         </div>
+        </div>
+    </div>
+    <footer class="grid-container">
+        <div class="grid-50">
+            <ul>
+                <li><a href="">Terms and Conditions</a></li>
+                <li><a href="">Link</a></li>
+                <li><a href="">Link</a></li>
+            </ul>
+        </div>
+        <div class="grid-50">
+            <a class="footer-logo" href="https://github.com/Taity-mini/CASA_CM2003"></a>
+        </div>
+    </footer>
 </body>
 </html>
