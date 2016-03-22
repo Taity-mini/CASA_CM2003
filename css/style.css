@@ -49,9 +49,16 @@ footer ul{
 footer > *{
     display: inline-block;
 }
-.footerLogo{
+.footer-logo{
     float: right;
-    height: 5em;
+    height: 100px;
+    width: 100px;
+    background: transparent url('../img/tinified/house1text3.png') no-repeat;
+    background-size: 100%;
+}
+.footer-logo:hover{
+    background: transparent url('../img/tinified/house3text3.png') no-repeat;
+    background-size: 100%;
 }
 /*
     MAP
@@ -178,9 +185,3 @@ input[type="button"]:focus {
 .text-right {
     text-align: right;
 }
-
-
-
-
-
-
