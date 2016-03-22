@@ -12,7 +12,7 @@ body{
 /*
     CUSTOM FONT
 */
-@font-face { font-family: chawp; src: url('./font/chawp.otf'); }
+@font-face { font-family: chawp; src: url('http://tm.wildman-productions.org/font/chawp.otf'); }
 /*
     Navigation
     Area where the team logo and the app title go
