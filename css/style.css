@@ -31,16 +31,13 @@ body{
 nav {
 }
 .site-title img{
-    width: 20vh;
+    width: 10em;
 }
 /*
     A(Hypertext Links) tag override
 */
 a{
     text-decoration: none;
-}
-a:visited{
-    color: inherit;
 }
 a:hover{
     color: white;
@@ -53,17 +50,18 @@ a:visited{
 */
 footer{
     font-family: serif;
+    margin-top: 3em;
 }
-footer ul{
-    list-style: none;
-}
-footer > *{
-    display: inline-block;
+footer a:hover{
+    color: wheat;
 }
 .footer-logo{
+    position: relative;
+    bottom: 3.5em;
+    z-index: 2;
     float: right;
-    height: 100px;
-    width: 100px;
+    height: 5em;
+    width: 5em;
     background: transparent url('../img/tinified/house1text3.png') no-repeat;
     background-size: 100%;
 }
@@ -71,13 +69,35 @@ footer > *{
     background: transparent url('../img/tinified/house3text3.png') no-repeat;
     background-size: 100%;
 }
+.footer-left{
+    float: left;
+}
+.footer-right{
+    float: right;
+}
+/*
+    SHELF
+    http://www.ocular-rhythm.com/creating-a-shelf-in-css/
+*/
+.shelf {
+    position:relative;
+    /*z-index:1;*/
+    border-bottom: 1.5em solid #604839;
+    border-left: 1vw solid transparent;
+    border-right: 1vw solid transparent;
+}
+.shelf-edge {
+    height: 2em;
+    /*z-index: 99;*/
+    position: relative;
+    background: #8C6954;
+}
 /*
     MAP
 */
 #map{
     height: 50vh;
 }
-
 /*
     BLACKBOARD
 */
@@ -88,7 +108,6 @@ footer > *{
     padding: 1em;
     background-image: url("../img/chalkboard-black.jpg");
     background-size:100%
-
 }
 /*
     Strike
@@ -99,13 +118,13 @@ footer > *{
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
-    margin-bottom: 1em ;
+    margin: 1em ;
 }
 
 .strike > span {
     position: relative;
     display: inline-block;
-    font-size: 30px;
+    font-size: 26px;
     padding: 0 15px;
 }
 
