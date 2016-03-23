@@ -12,51 +12,51 @@
     <script src="./js/map.js"></script>
 </head>
 <body>
-<nav class="grid-container text-center">
-    <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
-</nav>
+    <nav class="grid-container text-center">
+        <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
+    </nav>
 
-<div class="grid-container blackboard">
-    <div class="strike">
-        <span>Display Pub Crawl Route</span>
-    </div>
+    <div class="grid-container blackboard">
+        <div class="strike">
+            <span>Display Pub Crawl Route</span>
+        </div>
 
-    <div class="grid-container text-center">
+        <div class="grid-container text-center">
+            <div class="grid-container">
+                <p>Crawl Name: CRAWL NAME</p>
+                <input class="button-blackboard button-left" type="button" value="Arrived">
+                <input class="button-blackboard button-right" type="button" value="Next Pub">
+            </div>
+        </div>
+
         <div class="grid-container">
-            <p>Crawl Name: CRAWL NAME</p>
-            <input class="button-blackboard button-left" type="button" value="Arrived">
-            <input class="button-blackboard button-right" type="button" value="Next Pub">
+            <div class="strike">
+                <span>Route Map</span>
+            </div>
+            <div id="map"></div>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
+            </script>
+
+        </div>
+
+        <div class="grid-container">
+            <div class="strike">
+                <span>Twitter Feed</span>
+            </div>
         </div>
     </div>
 
-    <div class="grid-container">
-        <div class="strike">
-            <span>Route Map</span>
+    <footer class="grid-container">
+        <div class="shelf">
+            <div class="footer-left">
+                <a href="">Terms and Conditions</a>
+            </div>
+            <div class="footer-right">
+                <a class="footer-logo" href="https://github.com/Taity-mini/CASA_CM2003"></a>
+            </div>
         </div>
-        <div id="map"></div>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
-        </script>
-
-    </div>
-
-    <div class="grid-container">
-        <div class="strike">
-            <span>Twitter Feed</span>
-        </div>
-    </div>
-</div>
-<footer class="grid-container">
-    <div class="grid-50">
-        <ul>
-            <li><a href="">Terms and Conditions</a></li>
-            <li><a href="">Link</a></li>
-            <li><a href="">Link</a></li>
-        </ul>
-    </div>
-    <div class="grid-50">
-        <a class="footer-logo" href="https://github.com/Taity-mini/CASA_CM2003"></a>
-    </div>
-</footer>
+        <div class="shelf-edge"></div>
+    </footer>
 </body>
 </html>
