@@ -1,9 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:700,900);
 
 body {
-  background-size: 300px;
-  background-repeat: no-repeat;
-  background-position: center;
   margin-top: 80px;
   background-attachment: fixed;
   background-color: #0e83cd;
@@ -19,6 +16,9 @@ h2 {
 }
 
 #container {
+  background-size: 20em;
+  background-repeat: no-repeat;
+  background-position: center;
   background-image: url("../image1.png");
   height: 370px;
   margin: 0 auto;
