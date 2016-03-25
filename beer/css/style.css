@@ -16,7 +16,7 @@ h2 {
 }
 
 #container {
-  background-size: 20em;
+  background-size: 100PX;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("../image1.png");
