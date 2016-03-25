@@ -117,8 +117,8 @@ footer a:hover{
     display: block;
     text-align: center;
     overflow: hidden;
-    white-space: nowrap;
     margin: 1em ;
+    word-break: keep-all;
 }
 
 .strike > span {
