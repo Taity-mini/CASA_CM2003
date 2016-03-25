@@ -11,9 +11,8 @@ body{
 }
 /*
     CUSTOM FONT
-
 */
-@font-face {font-family: chawp; src: url('http://tm.wildman-productions.org/font/chawp.otf'); }
+@font-face { font-family: chawp; src: url('http://tm.wildman-productions.org/font/chawp.otf'); }
 /*@font-face {*/
     /*font-family: 'chawp';*/
     /*src: url('font/chawp-webfont.eot');*/
@@ -25,7 +24,7 @@ body{
     /*font-weight: normal;*/
     /*font-style: normal;*/
 /*}*/
-/*!**/
+/*
     Navigation
     Area where the team logo and the app title go
 */
