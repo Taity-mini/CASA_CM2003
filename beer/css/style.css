@@ -16,10 +16,6 @@ h2 {
 }
 
 #container {
-  background-size: 20em;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("../image1.png");
   height: 370px;
   margin: 0 auto;
   overflow: hidden;
@@ -39,18 +35,12 @@ h2 {
   background-color: #edaf32;
   border-radius: 10px
 }
-/*
-#beaker {
-  border: 10px solid #F2ECB2;
-  border-top: 0;
-  border-radius: 0 0 30px 30px;
-  height: 200px;
-  left: 14px;
-  bottom: 0;
-  width: 165px;
-}*/
 
 #beaker {
+  background-size: 20em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../image1.png");
   width: 228px;
   height: 230px;
   -moz-border-radius: 50px;
