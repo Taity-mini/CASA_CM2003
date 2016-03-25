@@ -48,6 +48,8 @@ h2 {
   border-radius: 230px;
   border: 8px solid #F2ECB2;
   bottom: 0;
+  margin-bottom: 20%;
+  margin-left: 10%;
 }
 #beaker:before,
 /*#beaker:after {
@@ -64,7 +66,7 @@ h2 {
 #beaker:before { left: -50px; }
 #beaker:after { right: -50px; }
 
-#liquid {
+#liquid {;
   background-color: #edaf32;
   border: 10px solid #edaf32;
   border-radius: 20px 20px 90px 90px;
@@ -312,8 +314,8 @@ h2 {
   z-index: 9999999;
   position: relative;
   color: #F2ECB2;
-  margin-top: 170px;
-  margin-left: 20px;
+  margin-top: 100px;
+  margin-left: 40px;
   font-size: 58pt;
   font-style: italic;
   text-shadow: 2px 2px #000;
