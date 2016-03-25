@@ -16,6 +16,10 @@ h2 {
 }
 
 #container {
+  background-size: 20em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../image1.png");
   height: 370px;
   margin: 0 auto;
   overflow: hidden;
@@ -37,10 +41,6 @@ h2 {
 }
 
 #beaker {
-  background-size: 20em;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("../image1.png");
   width: 228px;
   height: 230px;
   -moz-border-radius: 50px;
