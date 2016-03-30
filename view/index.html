@@ -10,6 +10,7 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
+    <!--Google Maps javascript for initialising the map-->
     <script src="../js/map.js"></script>
 </head>
 <body>
@@ -45,34 +46,29 @@
                 <p>Name: THE REAL PUB CRAWL, THE BEST PUB CRAWL</p>
                 <p>Rating: *****</p>
             </div>
-
         </div>
         <div class="grid-container">
             <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
             <div class="grid-container text-center">
-
                 <form action="../display" method="GET">
-
                     <div id="map"></div>
                     <script async defer
                             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
                     </script>
 
-                    <div>
-                        <ul>
-                            <li>Pub 1: <input class="button button-blackboard" type="button" value="Delete"></li>
-                            <li>Pub 2: <input class="button button-blackboard" type="button" value="Delete"></li>
-                            <li>Pub 3: <input class="button button-blackboard" type="button" value="Delete"></li>
-                            <li>Pub 4: <input class="button button-blackboard" type="button" value="Delete"></li>
-                            <li>Pub 5: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        </ul>
-                    </div>
+                    <ul class="pub-list">
+                        <li>Pub 1: <input class="button button-blackboard" type="button" value="Delete"></li>
+                        <li>Pub 2: <input class="button button-blackboard" type="button" value="Delete"></li>
+                        <li>Pub 3: <input class="button button-blackboard" type="button" value="Delete"></li>
+                        <li>Pub 4: <input class="button button-blackboard" type="button" value="Delete"></li>
+                        <li>Pub 5: <input class="button button-blackboard" type="button" value="Delete"></li>
+                    </ul>
 
                     <input class="button button-blackboard" type="submit" value="Begin Crawl">
                 </form>
-        </div>
+            </div>
         </div>
     </div>
     <footer class="grid-container">

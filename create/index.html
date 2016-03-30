@@ -10,6 +10,7 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
+    <!--Google Maps javascript for initialising the map-->
     <script src="../js/map.js"></script>
 </head>
 <body>
@@ -38,23 +39,21 @@
                 <span>Pub Crawl Route</span>
             </div>
             <div class="grid-container text-center">
-            <form action="../display" method="GET">
-                <div id="map"></div>
-                <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
-                </script>
-                <div>
-                    <ul>
+                <form action="../display" method="GET">
+                    <div id="map"></div>
+                    <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
+                    </script>
+                    <ul class="pub-list">
                         <li>Pub 1: <input class="button button-blackboard" type="button" value="Delete"></li>
                         <li>Pub 2: <input class="button button-blackboard" type="button" value="Delete"></li>
                         <li>Pub 3: <input class="button button-blackboard" type="button" value="Delete"></li>
                         <li>Pub 4: <input class="button button-blackboard" type="button" value="Delete"></li>
                         <li>Pub 5: <input class="button button-blackboard" type="button" value="Delete"></li>
                     </ul>
-                </div>
-                <input class="button button-blackboard" type="submit" value="Create Route">
-            </form>
-        </div>
+                    <input class="button button-blackboard" type="submit" value="Create Route">
+                </form>
+            </div>
         </div>
     </div>
 
