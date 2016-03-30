@@ -9,6 +9,8 @@
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
+
+    <!--Google Maps javascript for initialising the map-->
     <script src="../js/map.js"></script>
 </head>
 <body>
@@ -42,19 +44,18 @@
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
                 </script>
-                <ul>
-                    <li>Pub Option #1</li>
-                    <li>Pub Option #2</li>
-                    <li>Pub Option #3</li>
-                    <li>Pub Option #4</li>
-                    <li>Pub Option #5</li>
-                    <li>Pub Option #6</li>
+                <ul class="pub-list">
+                    <li>Pub Option #1 <input class="button button-blackboard" type="button" value="Delete"></li>
+                    <li>Pub Option #2 <input class="button button-blackboard" type="button" value="Delete"></li>
+                    <li>Pub Option #3 <input class="button button-blackboard" type="button" value="Delete"></li>
+                    <li>Pub Option #4 <input class="button button-blackboard" type="button" value="Delete"></li>
+                    <li>Pub Option #5 <input class="button button-blackboard" type="button" value="Delete"></li>
+                    <li>Pub Option #6 <input class="button button-blackboard" type="button" value="Delete"></li>
                 </ul>
-                <br/>
                 <form action="../display" method="GET">
                     <input class="button button-blackboard" type="submit" value="Generate Route">
                 </form>
-         </div>
+            </div>
         </div>
     </div>
 

@@ -149,6 +149,14 @@ footer a:hover{
     margin-left: 15px;
 }
 /*
+    Pub List
+    for the list of pubs on the create, generate, and view route pages
+*/
+.pub-list{
+    list-style: none;
+}
+
+/*
     Button
     This is a basic button class
 */
