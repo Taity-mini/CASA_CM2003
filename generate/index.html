@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Header starts here holds links to CSS files and google map script-->
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
     <title>Generate Route</title>
@@ -14,15 +15,18 @@
     <script src="../js/map.js"></script>
 </head>
 <body>
+<!-- Navigation container starts here holds app logo/tile -->
     <nav class="grid-container text-center">
         <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
     </nav>
 
+    <!-- Blackboard container starts here holds options to generate a pub crawl and map for displaying route -->
     <div class="grid-container blackboard">
         <div class="strike">
             <span>Generate A Route</span>
         </div>
 
+        <!-- Container for pub crawl options -->
         <div class="grid-container text-center">
             <form action=".#" method="GET">
             <p>Location <input></p>
@@ -35,10 +39,12 @@
             </form>
         </div>
 
+        <!-- Container for map, route list and generate route link button-->
         <div class="grid-container">
             <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
+
             <div class="grid-container text-center">
                 <div id="map"></div>
                 <script async defer
@@ -59,6 +65,7 @@
         </div>
     </div>
 
+    <!-- Footer container starts here holds shelf, terms and conditions link and group logo-->
     <footer class="grid-container">
         <div class="shelf">
             <div class="footer-left">
