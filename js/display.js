@@ -4,9 +4,10 @@
  * CASA - Pub Crawl Web app
  */
 
-//get parameters from URl
 
 //Global variables
+var markers = [];
+var map;
 var Latitude = 0; //Latitude
 var Longitiude = 0; //Longitiude
 
@@ -23,9 +24,7 @@ function GetURLParameter(sParam)
 
     for (var i = 0; i < sURLVariables.length; i++)
     {
-
         var sParameterName = sURLVariables[i].split('=');
-
         if (sParameterName[0] == sParam)
 
         {
@@ -39,9 +38,10 @@ Longitiud = GetURLParameter("lng");
 
 console.log("argument name=" +Latitude+" and value =" + lng);
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var myLatlng = new google.maps.LatLng(+Latitude, +Longitiude);
+    var myOptions = {
         center: {lat: +Latitude , lng: +Longitiud},
-        zoom: 20,
+        zoom: 15,
         styles: [{
             featureType: 'poi',
             stylers: [{ visibility: 'off' }]  // Turn off points of interest.
@@ -50,5 +50,6 @@ function initMap() {
             stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
         }],
         disableDoubleClickZoom: true
-    });
+    }
+    map = new google.maps.Map(document.getElementById('map'), myOptions);
 }
