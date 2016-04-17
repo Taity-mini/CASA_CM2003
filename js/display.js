@@ -85,7 +85,7 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
-
+    //Markers (will eventually be an array of them
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
