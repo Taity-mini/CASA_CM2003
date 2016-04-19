@@ -45,7 +45,7 @@ Latitude = GetURLParameter("lat");
 Longitude = GetURLParameter("lng");
 crawlName =  GetURLParameter("name");
 //$("#crawlname").text(crawlName);
-$('#crawlname').text('Test');
+$('#crawlname').text(crawlName);
 console.log(crawlName);
 
 console.log("argument name=" +Latitude+" and value =" + Longitude);
@@ -68,7 +68,7 @@ function initMap() {
     //set radius around route
     var myRoute = new google.maps.Circle({
         center: myLatlng,
-        radius: 800,
+        radius: 500,
         strokeColor: "#0000FF",
         strokeOpacity: 0.8,
         strokeWeight: 2,
@@ -100,5 +100,11 @@ function initMap() {
 
 
 
-//Map Viewer Events
-//
+//Ratings Box Popup
+function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if(e.style.display == 'block')
+        e.style.display = 'none';
+    else
+        e.style.display = 'block';
+}
