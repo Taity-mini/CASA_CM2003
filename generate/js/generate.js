@@ -6,6 +6,8 @@
 var map;
 var infowindow;
 var markers = [];
+var start = "";
+var end = "" ;
 
 $(document).ready(function(){
 
@@ -32,39 +34,77 @@ function PopulateNumPubs(numPubs){
 }
 
 
-function callback(results, status) {
-   if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-         createMarker(results[i]);
-      }
-   }
-}
+
 
 function createMarker(place) {
-   var placeLoc = place.geometry.location;
    var marker = new google.maps.Marker({
       map: map,
-      position: place.geometry.location
+      position: place.geometry.location,
+      stopover: true
    });
-
-   markers.push(marker);
 
    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
+      infowindow.setContent("<p>" + place.name + "<br/>Place ID: " + place.place_id + "<br/>Rating: " + place.rating + "<br/>" + marker.position +"</p>");
       infowindow.open(map, this);
    });
+   markers.push(marker);
 }
 
-function searchRadius(){
+function searchRadius(place){
    infowindow = new google.maps.InfoWindow();
    var service = new google.maps.places.PlacesService(map);
    service.nearbySearch({
       location: place,
       radius: 1000,
-      type: ['store']
-      //rankBy: google.maps.places.RankBy.DISTANCE
-   }, callback);
+      type: ['bar']
+   }, function(response, status){
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+         for (var i = 0; i < response.length; i++) {
+            createMarker(response[i]);
+         }
+         //TODO need to set the location of the start and end of the route, can't figure this out
+         //start = {lat: response[0].geometry.location.lat(),
+         //         lng: response[0].geometry.location.lng()};
+         //end = {lat: response[response.length-1].geometry.location.lat(),
+         //      lng: response[response.length-1].geometry.location.lng()};
+         //start = response[0].place_id;
+         //end = response[19].place_id;
+         console.log(start);
+         console.log(end);
+      }
+      else{
+         console.log("Nearby search failed");
+      }
+   });
 }
+
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, place) {
+
+   searchRadius(place);
+
+   start = {lat:57.1468584, lng:-2.0958835000000136};
+   end = {lat:57.1445429, lng:-2.1090999000000465};
+
+
+
+   directionsService.route({
+      origin: start,
+      destination: end,
+      //waypoints: markers,
+      //optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+   }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+         directionsDisplay.setDirections(response);
+
+      } else {
+         console.log('Directions request failed due to ' + status);
+      }
+      console.log(start);
+   });
+}
+
 
 
 
@@ -73,7 +113,7 @@ function searchRadius(){
 * */
 function initMap() {
 
-   var place = {lat: 51.5074, lng: 0.1278};
+   var place = {lat: 57.146904, lng:-2.097521};
 
    map = new google.maps.Map(document.getElementById('map'), {
       center: place,
@@ -85,15 +125,17 @@ function initMap() {
    var input = document.getElementById('location-search');
    var searchBox = new google.maps.places.SearchBox(input);
 
-   infowindow = new google.maps.InfoWindow();
-   var service = new google.maps.places.PlacesService(map);
-   service.nearbySearch({
-      location: place,
-      radius: 1000,
-      type: ['store']
-      //rankBy: google.maps.places.RankBy.DISTANCE
-   }, callback);
 
+   var directionsService = new google.maps.DirectionsService;
+   var directionsDisplay = new google.maps.DirectionsRenderer;
+
+   directionsDisplay.setMap(map);
+
+   calculateAndDisplayRoute(directionsService,directionsDisplay,place);
+
+   /*
+   * LISTENERS
+   */
    // Bias the SearchBox results towards current map's viewport.
    map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
@@ -108,13 +150,6 @@ function initMap() {
          return;
       }
 
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-         marker.setMap(null);
-      });
-      markers = [];
-
-      // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
          if (place.geometry.viewport) {
