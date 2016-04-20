@@ -45,7 +45,8 @@ Latitude = GetURLParameter("lat");
 Longitude = GetURLParameter("lng");
 crawlName =  GetURLParameter("name");
 //$("#crawlname").text(crawlName);
-$('#crawlname').text(crawlName);
+$("#crawlname").html(crawlName);
+
 console.log(crawlName);
 
 console.log("argument name=" +Latitude+" and value =" + Longitude);

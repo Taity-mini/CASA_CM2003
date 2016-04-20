@@ -14,7 +14,7 @@
     <!--Jquery Library-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--Display javascript for passing url parameters to map-->
-    <script src ="../js/display.js"></script>
+
 </head>
 <body>
     <!-- Navigation container starts here holds app logo/tile -->
@@ -31,7 +31,8 @@
         <!-- Container for route progress buttons -->
         <div class="grid-container text-center">
             <div class="grid-container">
-                <p>Crawl Name:<span id="crawlname"><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">(Rating)</a></span></p>
+                <p>Crawl Name: <span id="crawlname"></span> </p>
+                <p><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">(Rating)</a></p>
 
                 <input class="button-blackboard button-left" type="button" value="Arrived">
                 <input class="button-blackboard button-right" type="button" value="Next Pub">
@@ -98,5 +99,6 @@
             </div>
         </div>
     </div>
+    <script src ="../js/display.js"></script>
 </body>
 </html>
