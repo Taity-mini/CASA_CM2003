@@ -13,7 +13,8 @@
 
     <!--Jquery Library-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!--Display javascript for passing url parameters to map-->
+    <!--gmaps.js Library-->
+    <script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
 
 </head>
 <body>
@@ -78,27 +79,31 @@
         </div>
         <div class="shelf-edge"></div>
     </footer>
+
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper">
             <div class="popupBoxContent">
                 <form id = "RatingForm" action = "#" method = "post">
-                    <p>Crawl Name:</p>
+                    <h2>Rate Pub Crawl:</h2>
+                    <p>Crawl Name: <span id="#crawlrating"></span></p>
                     <p>Location:</p>
-                    <p>Rating:</p>
+                    <p>Rating:
                     <select>
-                        <option value="">Location 1</option>
-                        <option value="">Location 2</option>
-                        <option value="">Location 3</option>
-                        <option value="">Location 4</option>
-                        <option value="">Location 5</option>
+                        <option value="">*</option>
+                        <option value="">**</option>
+                        <option value="">***</option>
+                        <option value="">****</option>
+                        <option value="">*****</option>
                     </select>
-                    <input type = "submit" name = "loginSubmit" id = "loginSubmit"/><br />
-                    <input type = "button" name = "button" href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "CloseButton" value ="Close">
-
+                    </p>
+                    <br/>
+                    <input class="button-blackboard button-left"  type = "submit" name = "loginSubmit" value="Submit"/>
+                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "CloseButton" value ="Close">
                 </form>
             </div>
         </div>
     </div>
+    <!--Display javascript for passing url parameters to map-->
     <script src ="../js/display.js"></script>
 </body>
 </html>
