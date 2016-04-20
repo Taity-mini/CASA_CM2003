@@ -31,7 +31,7 @@
         <!-- Container for route progress buttons -->
         <div class="grid-container text-center">
             <div class="grid-container">
-                <p>Crawl Name:<span id="crawlname"><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">[Rating]</a></span></p>
+                <p>Crawl Name:<span id="crawlname"><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">(Rating)</a></span></p>
 
                 <input class="button-blackboard button-left" type="button" value="Arrived">
                 <input class="button-blackboard button-right" type="button" value="Next Pub">
@@ -47,9 +47,6 @@
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
                 </script>
-
-
-
         </div>
 
         <!-- Container for twitter feeds -->
@@ -80,11 +77,10 @@
         </div>
         <div class="shelf-edge"></div>
     </footer>
-
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper">
             <div class="popupBoxContent">
-                <form id = "RatingForm" action = "login.php" method = "post">
+                <form id = "RatingForm" action = "#" method = "post">
                     <p>Crawl Name:</p>
                     <p>Location:</p>
                     <p>Rating:</p>
@@ -95,14 +91,12 @@
                         <option value="">Location 4</option>
                         <option value="">Location 5</option>
                     </select>
-                    <a href ="./?page=register" id = "regPage" >Register</a>
                     <input type = "submit" name = "loginSubmit" id = "loginSubmit"/><br />
                     <input type = "button" name = "button" href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "CloseButton" value ="Close">
-                    <div id = "d1" style="color: red"></div>
+
                 </form>
             </div>
         </div>
     </div>
-
 </body>
 </html>
