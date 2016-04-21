@@ -44,9 +44,9 @@ function getFireBaseDB(ID)
 Latitude = GetURLParameter("lat");
 Longitude = GetURLParameter("lng");
 crawlName =  GetURLParameter("name");
-//$("#crawlname").text(crawlName);
 //Set crawl name to span and ratings box
-$("#crawlname").html(crawlName);
+$(".crawlname").html(crawlName);
+
 
 console.log(crawlName);
 
@@ -105,9 +105,12 @@ function initMap() {
 //Ratings Box Popup
 function toggle_visibility(id) {
     var e = document.getElementById(id);
-    $("#crawlrating").html(crawlName);
+   // $("#crawlrating").html(crawlName);
+
     if(e.style.display == 'block')
         e.style.display = 'none';
     else
         e.style.display = 'block';
+        //$(e).children.("span").innerHTML(crawlName);
+        $(".crawlname").html(crawlName);
 }
