@@ -156,6 +156,11 @@ footer a:hover{
 .pub-list{
     list-style: none;
 }
+.pub-list li{
+    border: white 0.1em solid;
+    padding: 1em;
+
+}
 
 /*
     Button

@@ -11,11 +11,13 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
-    <!--JQuery-->
-    <script src="../js/jquery.min.js"></script>
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 
-    <!--Google Maps javascript for initialising the map-->
-    <!--<script src="../js/map.js"></script>-->
+    <!--JQuery UI CDN
+        Used for sorting the pub list
+    -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
 
     <!--Generate route script-->
     <script src="js/generate.js"></script>
@@ -37,10 +39,9 @@
             <form action=".#" method="GET">
             <p>Location <input id="location-search" type="text" placeholder="Search"></p>
             <p>Number of Pubs <select id="num-pubs"></select></p>
-            <p>Crawl Name <input></p>
             <div class="grid-container">
                 <input class="button-blackboard" id="route-reset" type="button" value="Reset">
-                <input class="button-blackboard" id="route-submit" type="button" value="Submit">
+                <input class="button-blackboard" id="route-submit" type="button" value="Generate">
             </div>
             </form>
         </div>
@@ -56,16 +57,10 @@
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
                 </script>
-                <ul class="pub-list" id="route-list">
-                    <li>Pub Option #1 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #2 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #3 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #4 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #5 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #6 <input class="button button-blackboard" type="button" value="Delete"></li>
-                </ul>
-                <form action="../display" method="GET">
-                    <input class="button button-blackboard" type="submit" value="Generate Route">
+                <ul class="pub-list" id="route-list"></ul>
+                <form action="../display" method="GET" id="start-form">
+                    <p>Crawl Name <input type="text" required></p>
+                    <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
                 </form>
             </div>
         </div>
