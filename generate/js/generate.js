@@ -34,6 +34,7 @@ $(document).ready(function(){
 
     $('#route-reset').on("click",function(){
         clearRoute();
+        $('#start-form').hide();
     });
 });
 
@@ -114,6 +115,12 @@ function initMap() {
     // Create the location search box
     var input = document.getElementById('location-search');
     var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('num-pubs-container'));
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-reset'));
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-submit'));
 
     /*
      * LISTENERS
