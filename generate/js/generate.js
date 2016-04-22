@@ -6,7 +6,6 @@
 var map;
 var infowindow;
 var waypoints = [];
-//var place;
 
 $(document).ready(function(){
 
@@ -20,7 +19,6 @@ $(document).ready(function(){
 
     //when the route is clicked show the route area(the area with the map and list of pubs)
     $('#route-submit').on("click",function(){
-        $('#route').show();
 
         //Need to resize the map again otherwise when #route is shown it is blank
         google.maps.event.trigger(map, 'resize');
@@ -30,6 +28,7 @@ $(document).ready(function(){
         //var place = {lat: 57.146904, lng:-2.097521};
         //var place = map.position;
         searchRadius(place,numPubs);
+
     });
 
     $('#route-reset').on("click",function(){
@@ -80,6 +79,7 @@ function createMarker(place) {
     });
 
     waypoints.push(marker);
+    console.log("create: " + waypoints);
 }
 
 /*
@@ -99,15 +99,45 @@ function searchRadius(place,numPubs){
             for (var i = 0; i < numPubs; i++) {
                 createMarker(response[i]);
                 $('#route-list').append('<li>' + response[i].name + '</li>');
+                $('#route').show();
             }
             map.setCenter(place);
             map.setZoom(14);
+            console.log("near search " + waypoints);
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
+            calculateAndDisplayRoute(directionsDisplay, directionsService);
         }
         else{
             console.log("Nearby search failed");
+            $('#route').hide();
         }
     });
 }
+
+function calculateAndDisplayRoute(directionsDisplay, directionsService) {
+
+    console.log("calc display: " + waypoints.length);
+
+    // Retrieve the start and end locations and create a DirectionsRequest using
+    // WALKING directions.
+    directionsService.route({
+        origin: waypoints[0].position,
+        destination: waypoints[waypoints.length-1].position,
+        waypoints: waypoints.position,
+        travelMode: google.maps.TravelMode.WALKING
+    }, function(response, status) {
+        // Route the directions and pass the response to a function to create
+        // markers for each step.
+        if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+
 
 /*
  * Google maps
@@ -117,6 +147,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2
+
     });
 
     // Create the location search box
