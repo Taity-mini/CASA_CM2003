@@ -35,6 +35,7 @@
         <div class="grid-container text-center">
             <div class="grid-container">
                 <p>Crawl Name: <span class="crawlname"></span> </p>
+                <p>Location: <span class="crawlLocation"></span> </p>
                 <p><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">(Rating)</a></p>
 
                 <input class="button-blackboard button-left" type="button" value="Arrived">
@@ -88,7 +89,7 @@
                 <form id = "RatingForm" action = "#" method = "post">
                     <h2>Rate Pub Crawl:</h2>
                     <p>Crawl Name: <span class="crawlname"></span></p>
-                    <p>Location:</p>
+                    <p>Location: <span class="crawlLocation"></span></p>
                     <p>Rating:
                     <select>
                         <option value="">*</option>
@@ -107,6 +108,6 @@
     </div>
     <!--Display javascript for passing url parameters to map-->
     <script src ="../js/display.js"></script>
-    <script src="../js/firebase.js"></script>
+
 </body>
 </html>

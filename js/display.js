@@ -10,6 +10,7 @@ var map;
 var Latitude = 0; //Latitude
 var Longitude = 0; //Longitiude
 var crawlName;
+var crawlLocation;
 var fireBaseID; //Firebase push ID
 var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/');
 
@@ -42,14 +43,33 @@ Latitude = GetURLParameter("lat");
 Longitude = GetURLParameter("lng");
 crawlName =  GetURLParameter("name");
 //Set crawl name to span and ratings box
-$(".crawlname").html(crawlName);
+getFireBaseDB(fireBaseID);
+$(document).ready(function(){
 
 
-console.log(crawlName);
+    console.log("argument name=" +crawlName+" and location =" + crawlLocation + "url:" + fireBaseID);
+});
+
+
+
 
 
 //Get unique ID from URL to access firebase DB
 function getFireBaseDB(ID)
+{
+    casaDataRef.child("routes").child(ID).once("value", function(snapshot) {
+        var nameSnapshot = snapshot.child("crawlName");
+        crawlName  = nameSnapshot.val();
+        // name === { first: "Fred", last: "Flintstone"}
+        var locationSnapShot = snapshot.child("crawlLocation");
+        crawlLocation = locationSnapShot.val();
+        // firstName === "Fred"
+        $(".crawlname").html(crawlName);
+        $(".crawlLocation").html(crawlLocation);
+    });
+}
+
+function getLocationDetails(location)
 {
 
 }
