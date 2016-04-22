@@ -10,7 +10,7 @@ var waypoints = [];
 
 $(document).ready(function(){
 
-    $('#start-form').hide();
+    $('#route').hide();
 
     //Add number of pubs to the dropdown
     populateNumPubs(20);
@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     //when the route is clicked show the route area(the area with the map and list of pubs)
     $('#route-submit').on("click",function(){
-        $('#start-form').show();
+        $('#route').show();
 
         //Need to resize the map again otherwise when #route is shown it is blank
         google.maps.event.trigger(map, 'resize');
@@ -34,7 +34,7 @@ $(document).ready(function(){
 
     $('#route-reset').on("click",function(){
         clearRoute();
-        $('#start-form').hide();
+        $('#route').hide();
     });
 });
 
@@ -56,7 +56,14 @@ function clearRoute(){
  */
 function populateNumPubs(pubs) {
     for (i = 1; i <= pubs; i++) {
-        $('#num-pubs').append('<option value="' + i + '">' + i + '</option>')
+        //set the default select option to 5
+        if(i == 5){
+            $('#num-pubs').append('<option value="' + i + '" selected="selected">' + i + '</option>')
+        }
+        else{
+            $('#num-pubs').append('<option value="' + i + '">' + i + '</option>')
+        }
+
     }
 }
 
@@ -86,7 +93,7 @@ function searchRadius(place,numPubs){
     service.nearbySearch({
         location: place,
         radius: 1000,
-        types: ['bar']
+        types: ['bar']//night_club
     }, function(response, status){
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < numPubs; i++) {
