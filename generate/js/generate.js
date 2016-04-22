@@ -5,7 +5,9 @@
  */
 var map;
 var infowindow;
-var waypoints = [];
+var markers = [];
+var directionsService;
+var directionsDisplay;
 
 $(document).ready(function(){
 
@@ -39,13 +41,13 @@ $(document).ready(function(){
 
 
 /*
-* Clear all of the waypoints of the map and clear the pub list
+* Clear all of the markers of the map and clear the pub list
 * */
 function clearRoute(){
-    for (var i = 0; i < waypoints.length; i++) {
-        waypoints[i].setMap(null);
+    if(typeof directionsDisplay !== 'undefined'){
+        directionsDisplay.setMap(null);
     }
-    waypoints = [];
+    markers = [];
     $('#route-list').empty();
 }
 
@@ -66,22 +68,6 @@ function populateNumPubs(pubs) {
     }
 }
 
-function createMarker(place) {
-    var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-        //stopover: true
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent("<p>" + place.name + "<br/>Place ID: " + place.place_id + "<br/>Rating: " + place.rating + "<br/>" + marker.position +"</p>");
-        infowindow.open(map, this);
-    });
-
-    waypoints.push(marker);
-    console.log("create: " + waypoints);
-}
-
 /*
 * Search for pubs around a specific area
 * takes in the place you'd like to search and the number of pubs that you would like
@@ -90,6 +76,10 @@ function searchRadius(place,numPubs){
     clearRoute();
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(map);
+
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
     service.nearbySearch({
         location: place,
         radius: 1000,
@@ -97,16 +87,17 @@ function searchRadius(place,numPubs){
     }, function(response, status){
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < numPubs; i++) {
-                createMarker(response[i]);
+                //createMarker(response[i]);
+                var m = markers.push({
+                    location: response[i].geometry.location,
+                    stopover: true
+                });
+
                 $('#route-list').append('<li>' + response[i].name + '</li>');
                 $('#route').show();
             }
             map.setCenter(place);
-            map.setZoom(14);
-            console.log("near search " + waypoints);
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-
+            map.setZoom(13);
             calculateAndDisplayRoute(directionsDisplay, directionsService);
         }
         else{
@@ -118,14 +109,21 @@ function searchRadius(place,numPubs){
 
 function calculateAndDisplayRoute(directionsDisplay, directionsService) {
 
-    console.log("calc display: " + waypoints.length);
+    //set the start and end location of the route based on the markers
+    var start = markers[0].location;
+    var end = markers[markers.length-1].location;
+
+    //remove the first and last locations for using the rest as waypoints
+    markers.shift();
+    markers.pop();
 
     // Retrieve the start and end locations and create a DirectionsRequest using
     // WALKING directions.
     directionsService.route({
-        origin: waypoints[0].position,
-        destination: waypoints[waypoints.length-1].position,
-        waypoints: waypoints.position,
+        origin: start,
+        destination: end,
+        waypoints: markers,
+        optimizeWaypoints: true,
         travelMode: google.maps.TravelMode.WALKING
     }, function(response, status) {
         // Route the directions and pass the response to a function to create
@@ -151,11 +149,10 @@ function initMap() {
     });
 
     // Create the location search box
-    var input = document.getElementById('location-search');
-    var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('location-search'));
 
-
+    // Add custom map controls to the map
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('location-search'));
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('num-pubs-container'));
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-reset'));
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-submit'));
