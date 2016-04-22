@@ -11,11 +11,16 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
-    <!--Jquery Library-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 
-    <!--Google Maps javascript for initialising the map-->
-    <script src="../js/map.js"></script>
+    <!--JQuery UI CDN
+        Used for sorting the pub list
+    -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+
+    <!--Generate route script-->
+    <script src="js/generate.js"></script>
 </head>
 <body>
 <!-- Navigation container starts here holds app logo/tile -->
@@ -31,38 +36,27 @@
 
         <!-- Container for pub crawl options -->
         <div class="grid-container text-center">
-            <form action=".#" method="GET">
-            <p>Location <input></p>
-            <p>Number of Pubs <input></p>
-            <p>Crawl Name <input></p>
-            <div class="grid-container">
-                <input class="button-blackboard" type="button" value="Reset">
-                <input class="button-blackboard" type="button" value="Submit">
-            </div>
-            </form>
+            <div class="controls" id="num-pubs-container"><label>Pubs <select id="num-pubs"></select></label></div>
+            <input class="button-blackboard" id="route-reset" type="button" value="Reset">
+            <input class="button-blackboard" id="route-submit" type="button" value="Generate">
+            <input class="controls" id="location-search" type="text" placeholder="Search">
+            <div id="map"></div>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
+            </script>
         </div>
 
         <!-- Container for map, route list and generate route link button-->
-        <div class="grid-container">
+        <div class="grid-container" id="route">
             <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
 
             <div class="grid-container text-center">
-                <div id="map"></div>
-                <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
-                </script>
-                <ul class="pub-list">
-                    <li>Pub Option #1 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #2 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #3 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #4 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #5 <input class="button button-blackboard" type="button" value="Delete"></li>
-                    <li>Pub Option #6 <input class="button button-blackboard" type="button" value="Delete"></li>
-                </ul>
-                <form action="../display" method="GET">
-                    <input class="button button-blackboard" type="submit" value="Generate Route">
+                <ul class="pub-list" id="route-list"></ul>
+                <form action="../display" method="GET" id="start-form">
+                    <p>Crawl Name <input type="text" required></p>
+                    <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
                 </form>
             </div>
         </div>
