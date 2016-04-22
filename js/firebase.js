@@ -2,19 +2,31 @@
  * Created by Craig Robertson on 19/04/2016.
  */
 
-var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/');
-var crawlName = $('.crawlname').val();
-var crawlLocation = $('#location-search').val();
+var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/');
+var crawlName;
+var crawlLocation;
 var crawlURL = "";
 var crawlRating = '*';
+var newKey;
+
+console.log("Name "+crawlName + "location" + crawlLocation +"crawlURL");
+
 $(document).ready(function(){
-$('#start-route').on("click", function(){push()})});
+    $('#start-route').on("click", function()
+    {
+        push();
+        //$(location).attr('href', './display/?id=' + newKey)
+        window.location.replace ('../display/?id=' + newKey);
+    });
+});
 
 function push(){
+    crawlName = $('.crawlname').val();
+    crawlLocation = $('#location-search').val();
     var newPush = casaDataRef.push({crawlName: crawlName, crawlLocation: crawlLocation, crawlURL: crawlURL});
-    var newKey = newPush.key();
-    window.location = '/display/?id=' + newKey;
-
+    newKey = newPush.key();
+    console.log(newPush);
+    console.log(newKey);
 }
 
 function update(){

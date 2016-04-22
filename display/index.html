@@ -15,6 +15,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--gmaps.js Library-->
     <script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
+    <!-- FireBase scripts-->
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
 </head>
 <body>
@@ -82,7 +84,7 @@
 
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper">
-            <div class="popupBoxContent">
+            <div class="blackboard">
                 <form id = "RatingForm" action = "#" method = "post">
                     <h2>Rate Pub Crawl:</h2>
                     <p>Crawl Name: <span class="crawlname"></span></p>
@@ -105,5 +107,6 @@
     </div>
     <!--Display javascript for passing url parameters to map-->
     <script src ="../js/display.js"></script>
+    <script src="../js/firebase.js"></script>
 </body>
 </html>

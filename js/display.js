@@ -6,11 +6,12 @@
 
 
 //Global variables
-var markers = [];
 var map;
 var Latitude = 0; //Latitude
 var Longitude = 0; //Longitiude
 var crawlName;
+var fireBaseID; //Firebase push ID
+var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/');
 
 /*
 * Current URL Structure:
@@ -35,12 +36,8 @@ function GetURLParameter(sParam)
 }
 
 
-//Get unique ID from URL to access firebase DB
-function getFireBaseDB(ID)
-{
 
-}
-
+fireBaseID = GetURLParameter("id");
 Latitude = GetURLParameter("lat");
 Longitude = GetURLParameter("lng");
 crawlName =  GetURLParameter("name");
@@ -49,6 +46,13 @@ $(".crawlname").html(crawlName);
 
 
 console.log(crawlName);
+
+
+//Get unique ID from URL to access firebase DB
+function getFireBaseDB(ID)
+{
+
+}
 
 console.log("argument name=" +Latitude+" and value =" + Longitude);
 function initMap() {
