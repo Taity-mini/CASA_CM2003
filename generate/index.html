@@ -21,6 +21,9 @@
 
     <!--Generate route script-->
     <script src="js/generate.js"></script>
+    <!-- FireBase scripts-->
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <script src="../js/firebase.js"></script>
 </head>
 <body>
 <!-- Navigation container starts here holds app logo/tile -->
@@ -55,7 +58,7 @@
             <div class="grid-container text-center">
                 <ul class="pub-list" id="route-list"></ul>
                 <form action="../display" method="GET" id="start-form">
-                    <p>Crawl Name <input type="text" required></p>
+                    <p>Crawl Name <input type="text" required class="crawlname"></p>
                     <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
                 </form>
             </div>
