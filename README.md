@@ -11,3 +11,5 @@ Custom Chalk Font: http://www.1001fonts.com/chawp-font.html
 
 # API's
 Google Maps: https://developers.google.com/maps/
+
+gmaps.js:    https://github.com/hpneo/gmaps

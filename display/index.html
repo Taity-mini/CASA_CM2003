@@ -11,11 +11,11 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
-    <!--Display javascript for passing url parameters to map-->
+    <!--Jquery Library-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--gmaps.js Library-->
+    <script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
 
-    <!--Google Maps javascript for initialising the map-->
-    <
-    <script src ="../js/display.js"></script>
 </head>
 <body>
     <!-- Navigation container starts here holds app logo/tile -->
@@ -32,7 +32,9 @@
         <!-- Container for route progress buttons -->
         <div class="grid-container text-center">
             <div class="grid-container">
-                <p>Crawl Name: CRAWL NAME</p>
+                <p>Crawl Name: <span class="crawlname"></span> </p>
+                <p><a href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "login">(Rating)</a></p>
+
                 <input class="button-blackboard button-left" type="button" value="Arrived">
                 <input class="button-blackboard button-right" type="button" value="Next Pub">
             </div>
@@ -45,11 +47,8 @@
             </div>
             <div id="map"></div>
                 <script async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
                 </script>
-
-
-
         </div>
 
         <!-- Container for twitter feeds -->
@@ -80,5 +79,31 @@
         </div>
         <div class="shelf-edge"></div>
     </footer>
+
+    <div id="popupBoxTwoPosition">
+        <div class="popupBoxTwoWrapper">
+            <div class="popupBoxContent">
+                <form id = "RatingForm" action = "#" method = "post">
+                    <h2>Rate Pub Crawl:</h2>
+                    <p>Crawl Name: <span class="crawlname"></span></p>
+                    <p>Location:</p>
+                    <p>Rating:
+                    <select>
+                        <option value="">*</option>
+                        <option value="">**</option>
+                        <option value="">***</option>
+                        <option value="">****</option>
+                        <option value="">*****</option>
+                    </select>
+                    </p>
+                    <br/>
+                    <input class="button-blackboard button-left"  type = "submit" name = "loginSubmit" value="Submit"/>
+                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "CloseButton" value ="Close">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Display javascript for passing url parameters to map-->
+    <script src ="../js/display.js"></script>
 </body>
 </html>
