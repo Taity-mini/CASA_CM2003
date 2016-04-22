@@ -20,10 +20,12 @@ $(document).ready(function(){
     });
 });
 
+
 function push(){
     crawlName = $('.crawlname').val();
     crawlLocation = $('#location-search').val();
-    var newPush = casaDataRef.push({crawlName: crawlName, crawlLocation: crawlLocation, crawlURL: crawlURL});
+
+    var newPush = casaDataRef.child('routes').push({crawlName: crawlName, crawlLocation: crawlLocation, crawlURL: crawlURL});
     newKey = newPush.key();
     console.log(newPush);
     console.log(newKey);
