@@ -12,7 +12,7 @@ var Longitude = 0; //Longitiude
 var crawlName;
 var crawlLocation;
 var fireBaseID; //Firebase push ID
-var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/');
+var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes');
 
 /*
 * Current URL Structure:
@@ -52,12 +52,10 @@ $(document).ready(function(){
 
 
 
-
-
 //Get unique ID from URL to access firebase DB
 function getFireBaseDB(ID)
 {
-    casaDataRef.child("routes").child(ID).once("value", function(snapshot) {
+    casaDataRef.child(ID).once("value", function(snapshot) {
         var nameSnapshot = snapshot.child("crawlName");
         crawlName  = nameSnapshot.val();
         // name === { first: "Fred", last: "Flintstone"}
@@ -72,6 +70,22 @@ function getFireBaseDB(ID)
 function getLocationDetails(location)
 {
 
+}
+
+
+//Decoding URL poly url string
+var decodedPath = google.maps.geometry.encoding.decodePath(encodedPolyline);
+var decodedLevels = decodeLevels(encodedLevels);
+
+// Decode an encoded levels string into an array of levels.
+function decodeLevels(encodedLevelsString) {
+    var decodedLevels = [];
+
+    for (var i = 0; i < encodedLevelsString.length; ++i) {
+        var level = encodedLevelsString.charCodeAt(i) - 63;
+        decodedLevels.push(level);
+    }
+    return decodedLevels;
 }
 
 console.log("argument name=" +Latitude+" and value =" + Longitude);

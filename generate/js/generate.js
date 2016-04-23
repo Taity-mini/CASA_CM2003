@@ -92,6 +92,7 @@ function searchRadius(place,numPubs){
                     location: response[i].geometry.location,
                     stopover: true
                 });
+                
 
                 $('#route-list').append('<li>' + response[i].name + '</li>');
                 $('#route').show();
