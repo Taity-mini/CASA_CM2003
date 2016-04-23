@@ -8,13 +8,14 @@ var infowindow;
 var markers = [];
 var directionsService;
 var directionsDisplay;
-
+var bounds;
+var encodeString;
 $(document).ready(function(){
 
     $('#route').hide();
 
     //Add number of pubs to the dropdown
-    populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
+    populateNumPubs(20);
 
     $('.pub-list').sortable();
     $('.pub-list').disableSelection();
@@ -87,11 +88,12 @@ function searchRadius(place,numPubs){
     }, function(response, status){
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < numPubs; i++) {
-
-                markers.push({
+                //createMarker(response[i]);
+                var m = markers.push({
                     location: response[i].geometry.location,
                     stopover: true
                 });
+                
 
                 $('#route-list').append('<li>' + response[i].name + '</li>');
                 $('#route').show();
@@ -101,7 +103,7 @@ function searchRadius(place,numPubs){
             calculateAndDisplayRoute(directionsDisplay, directionsService);
         }
         else{
-            window.alert("Nearby search failed");
+            console.log("Nearby search failed");
             $('#route').hide();
         }
     });
@@ -129,7 +131,45 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
         // Route the directions and pass the response to a function to create
         // markers for each step.
         if (status === google.maps.DirectionsStatus.OK) {
+            //Encode all routes in poly line
+
+            var polyline = new google.maps.Polyline({
+                path: [],
+                strokeColor: '#FF0000',
+                strokeWeight: 3
+            });
+            polyline == null;
+            polyline.setMap(null);
+
+
+
+
+            bounds = new google.maps.LatLngBounds();
+
+            var legs = response.routes[0].legs;
+            for (i=0;i<legs.length;i++) {
+                var steps = legs[i].steps;
+                for (j=0;j<steps.length;j++) {
+                    var nextSegment = steps[j].path;
+                    for (k=0;k<nextSegment.length;k++) {
+                        polyline.getPath().push(nextSegment[k]);
+                        bounds.extend(nextSegment[k]);
+                    }
+                }
+            }
+
             directionsDisplay.setDirections(response);
+            polyline.setMap(map);
+
+            var path = polyline.getPath();
+            // Because path is an MVCArray, we can simply append a new coordinate
+            // and it will automatically appear
+
+            // Update the text field to display the polyline encodings
+            encodeString = google.maps.geometry.encoding.encodePath(polyline.getPath() ).replace(/\\/g,'\\\\');
+            //encodeString = google.maps.geometry.encoding.encodePath(path).replace(/\\/g,"\\\\");
+            console.log(polyline);
+            console.log("Encoded Polyline" + encodeString);
         } else {
             window.alert('Directions request failed due to ' + status);
         }
@@ -174,7 +214,7 @@ function initMap() {
             return;
         }
 
-        var bounds = new google.maps.LatLngBounds();
+        bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.

@@ -8,6 +8,7 @@ var crawlLocation = "";
 var crawlURL = "";
 var crawlRating = '*';
 var newKey;
+var mapCenter;
 
 console.log("Name: "+ crawlName + "location: " + crawlLocation +"crawlURL");
 
@@ -25,8 +26,12 @@ $(document).ready(function(){
 function push(){
     crawlName = $('.crawlname').val();
     crawlLocation = $('#location-search').val();
-
-    var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation, crawlURL: 'url' });
+    mapCenter = markers[0].location;
+    crawlURL = encodeString;
+    var latitude =   mapCenter.lat();
+    var longitude =  mapCenter.lng();
+    console.log("Lat "+ latitude + "lng: " + longitude +"map center " + mapCenter);
+    var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation, crawlURL: crawlURL, crawlLat: latitude, crawlLng: longitude});
     newKey = newPush.key();
     console.log(newPush);
     console.log(newKey);

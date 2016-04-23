@@ -13,6 +13,7 @@ var crawlName;
 var crawlLocation;
 var fireBaseID; //Firebase push ID
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes');
+var crawlURL;
 
 /*
 * Current URL Structure:
@@ -39,15 +40,12 @@ function GetURLParameter(sParam)
 
 
 fireBaseID = GetURLParameter("id");
-Latitude = GetURLParameter("lat");
-Longitude = GetURLParameter("lng");
-crawlName =  GetURLParameter("name");
+
 //Set crawl name to span and ratings box
 getFireBaseDB(fireBaseID);
 $(document).ready(function(){
 
 
-    console.log("argument name=" +crawlName+" and location =" + crawlLocation + "url:" + fireBaseID);
 });
 
 
@@ -61,9 +59,15 @@ function getFireBaseDB(ID)
         // name === { first: "Fred", last: "Flintstone"}
         var locationSnapShot = snapshot.child("crawlLocation");
         crawlLocation = locationSnapShot.val();
-        // firstName === "Fred"
+        var latSnapShot = snapshot.child("crawlLat");
+        Latitude = latSnapShot.val();
+        var lngSnapShot = snapshot.child("crawlLng");
+        Longitude= lngSnapShot.val();
+        var urlSnapShot = snapshot.child("crawlURL");
+        crawlURL = urlSnapShot.val();
         $(".crawlname").html(crawlName);
         $(".crawlLocation").html(crawlLocation);
+        console.log("argument name=" +crawlName+" and lat =" + Latitude + "lng" +  Longitude);
     });
 }
 
@@ -73,25 +77,9 @@ function getLocationDetails(location)
 }
 
 
-//Decoding URL poly url string
-var decodedPath = google.maps.geometry.encoding.decodePath(encodedPolyline);
-var decodedLevels = decodeLevels(encodedLevels);
-
-// Decode an encoded levels string into an array of levels.
-function decodeLevels(encodedLevelsString) {
-    var decodedLevels = [];
-
-    for (var i = 0; i < encodedLevelsString.length; ++i) {
-        var level = encodedLevelsString.charCodeAt(i) - 63;
-        decodedLevels.push(level);
-    }
-    return decodedLevels;
-}
-
-console.log("argument name=" +Latitude+" and value =" + Longitude);
 function initMap() {
     var myLatlng = new google.maps.LatLng(+Latitude, +Longitude);
-    console.log("Center=" + myLatlng);
+    var myCenter;
     var myOptions = {
         center: myLatlng,
         zoom: 14,
@@ -105,10 +93,37 @@ function initMap() {
         disableDoubleClickZoom: true
     }
 
+
+    var bermudaTriangle;
+
+    map = new google.maps.Map(document.getElementById('map'), myOptions);
+    //var path = google.maps.geometry.encoding.decodePath(+crawlURL).replace(/\\/g,"\\\\");
+    //console.log(path);
+    // Construct the polygon
+    var poly = (google.maps.geometry.encoding.decodePath(crawlURL));
+    var bounds = new google.maps.LatLngBounds();
+    var path = poly.getPath();
+    path.forEach(function( latlng ) {
+        bounds.extend( latlng );
+    });
+    _map.fitBounds( bounds );
+
+    Console.log(poly + path)
+
+    bermudaTriangle = new google.maps.Polygon({
+        paths: google.maps.geometry.encoding.decodePath(crawlURL),
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+    });
+
+    myCenter= bermudaTriangle.getPath().getAt(Math.round(bermudaTriangle.getPath().getLength() / 2));
     //set radius around route
     var myRoute = new google.maps.Circle({
-        center: myLatlng,
-        radius: 500,
+        center: myCenter,
+        radius: 1000,
         strokeColor: "#0000FF",
         strokeOpacity: 0.8,
         strokeWeight: 2,
@@ -132,10 +147,17 @@ function initMap() {
         icon: icon,
         title: "Some pub"
     });
+
+
     //Finally create map and add everything together:+
-    map = new google.maps.Map(document.getElementById('map'), myOptions);
+
     myRoute.setMap(map);
     marker.setMap(map);
+
+    bermudaTriangle.setMap(map);
+    map.setCenter(myCenter);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
 }
 
 
