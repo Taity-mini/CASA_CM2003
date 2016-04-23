@@ -14,7 +14,7 @@ $(document).ready(function(){
     $('#route').hide();
 
     //Add number of pubs to the dropdown
-    populateNumPubs(20);
+    populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
 
     $('.pub-list').sortable();
     $('.pub-list').disableSelection();
@@ -87,12 +87,11 @@ function searchRadius(place,numPubs){
     }, function(response, status){
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             for (var i = 0; i < numPubs; i++) {
-                //createMarker(response[i]);
-                var m = markers.push({
+
+                markers.push({
                     location: response[i].geometry.location,
                     stopover: true
                 });
-                
 
                 $('#route-list').append('<li>' + response[i].name + '</li>');
                 $('#route').show();
@@ -102,7 +101,7 @@ function searchRadius(place,numPubs){
             calculateAndDisplayRoute(directionsDisplay, directionsService);
         }
         else{
-            console.log("Nearby search failed");
+            window.alert("Nearby search failed");
             $('#route').hide();
         }
     });
