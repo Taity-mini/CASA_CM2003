@@ -8,6 +8,7 @@ var infowindow;
 var markers = [];
 var directionsService;
 var directionsDisplay;
+var waypoints;
 
 $(document).ready(function(){
 
@@ -108,7 +109,9 @@ function searchRadius(place,numPubs){
 }
 
 function calculateAndDisplayRoute(directionsDisplay, directionsService) {
-
+    //first copy markers to waypoints array
+    waypoints = [];
+    waypoints = jQuery.extend([], markers);
     //set the start and end location of the route based on the markers
     var start = markers[0].location;
     var end = markers[markers.length-1].location;
