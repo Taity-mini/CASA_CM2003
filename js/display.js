@@ -34,12 +34,13 @@ function GetURLParameter(sParam)
         }
     }
 }
+setup();
 
-
-$(document).ready(function(){
+function setup()
+{
     fireBaseID = GetURLParameter("id");
     getFireBaseDB(fireBaseID);
-});
+}
 
 
 
