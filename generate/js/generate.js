@@ -156,7 +156,7 @@ function initMap() {
 
     // Add custom map controls to the map
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('location-search'));
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('num-pubs-container'));
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('num-pubs-container'));
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-reset'));
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('route-submit'));
 
