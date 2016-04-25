@@ -16,9 +16,9 @@ $(document).ready(function(){
 
     //Add number of pubs to the dropdown
     populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
-
-    $('.pub-list').sortable();
-    $('.pub-list').disableSelection();
+    
+    // $('.pub-list').sortable();
+    // $('.pub-list').disableSelection();
 
     //when the route is clicked show the route area(the area with the map and list of pubs)
     $('#route-submit').on("click",function(){
@@ -133,6 +133,7 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
         // markers for each step.
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            window.location.hash = 'route';
         } else {
             window.alert('Directions request failed due to ' + status);
         }

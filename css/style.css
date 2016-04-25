@@ -207,6 +207,13 @@ footer a:hover{
     height: 100%;
 }
 
+#route-submit{
+    margin-bottom: 10px;
+}
+
+#route-reset{
+    margin-bottom: 10px;
+}
 
 
 /*

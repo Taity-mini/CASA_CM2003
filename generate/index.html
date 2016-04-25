@@ -17,7 +17,7 @@
     <!--JQuery UI CDN
         Used for sorting the pub list
     -->
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+    <!--<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>-->
 
     <!--Generate route script-->
     <script src="js/generate.js"></script>
@@ -40,9 +40,14 @@
 
         <!-- Container for pub crawl options -->
         <div class="grid-container text-center">
-            <div class="controls" id="num-pubs-container"><label>Pubs <select id="num-pubs"></select></label></div>
-            <input class="button-blackboard" id="route-reset" type="button" value="Reset">
-            <input class="button-blackboard" id="route-submit" type="button" value="Generate">
+            <div class="controls" id="num-pubs-container">
+                <label>Pubs <select id="num-pubs"></select></label>
+            </div>
+            <div id="controls-buttons-container">
+                <input class="button-blackboard" id="route-reset" type="button" value="Reset">
+                <input class="button-blackboard" id="route-submit" type="button" value="Generate">
+            </div>
+
             <input class="controls" id="location-search" type="text" placeholder="Search">
             <div id="map"></div>
             <script async defer
