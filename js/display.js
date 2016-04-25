@@ -13,10 +13,13 @@ var fireBaseID; //Firebase push ID
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
 //var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
 var markers = [];
-var complete = false;
+var directionsService;
+var directionsDisplay;
+
 /*
 * Current URL Structure:
-* index.html?lat=57.149717&lng=-2.094278&name=pub- gives you aberdeen + crawl name
+*
+* ./Display/?id=UNIQUE_FIREBASE_ID - gives you firebase id for route and waypoint info
 *
 * */
 
@@ -40,41 +43,31 @@ setup();
 function setup()
 {
     fireBaseID = GetURLParameter("id");
-    getFireBaseDB(fireBaseID);
-}
 
+    getFireBaseDB(fireBaseID);
+
+}
 
 
 //Get unique ID from URL to access firebase DB
 function getFireBaseDB(ID)
 {
-    casaDataRef.child(ID).once("value", function(snapshot) {
-        //Crawl Info stuff STARTS
+    /*Crawl Information Fetch from firebase STARTS*/
+    casaDataRef.child(ID).on("value", function(snapshot) {
+
         var nameSnapshot = snapshot.child("crawlName");
         crawlName  = nameSnapshot.val();
         var locationSnapShot = snapshot.child("crawlLocation");
         crawlLocation = locationSnapShot.val();
 
-
+        //Set crawl name and location to info and ratings boxes
         $(".crawlname").html(crawlName);
         $(".crawlLocation").html(crawlLocation);
-        //Crawl Info stuff ENDS
 
+    });
+    /*Crawl Information Fetch from firebase ENDS*/
 
-
-  /*      var onComplete = function(error) {
-            if (error) {
-                console.log('Synchronization failed');
-                complete = false;
-            } else {
-                console.log('Synchronization succeeded');
-                complete = true;
-            }
-        };*/
-
-
-
-        //Now get all markers/waypoints
+    /*Crawl Waypoints Fetch from firebase STARTS*/
         casaDataRef.child(ID).child('waypoints').on('value', function (snapshot) {
             snapshot.forEach(function(childSnapshot) {
 
@@ -90,25 +83,20 @@ function getFireBaseDB(ID)
                     location: location,
                     stopover: stopover
                 });
-
+                console.log("Inside snapshot: " +markers);
             });
+            /*Crawl Waypoints Fetch from firebase ENDS*/
+            console.log("outside snapshot: " +markers);
+            calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
+
+            google.maps.event.trigger(map, 'resize');
             //Now draw route again..
-
-                console.log("complete");
-                calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
-                google.maps.event.trigger(map, 'resize');
-
-
+            console.log("complete");
         });
-    });
-
-   // console.log("Route Complete");
 }
 
 
     function initMap() {
-        console.log(markers);
-        //var myLatlng = new google.maps.LatLng(+Latitude, +Longitude);
         var myCenter;
         var myOptions = {
             center: {lat: 0, lng: 0},
@@ -121,14 +109,13 @@ function getFireBaseDB(ID)
                 stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
             }],
             disableDoubleClickZoom: true
-        }
+        };
 
 
         map = new google.maps.Map(document.getElementById('map'), myOptions);
         directionsService = new google.maps.DirectionsService;
         directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
-        //console.log(path);
 
         //Markers
         //Marker Icon
@@ -138,7 +125,6 @@ function getFireBaseDB(ID)
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
         };
-
 
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
