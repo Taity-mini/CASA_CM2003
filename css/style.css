@@ -286,6 +286,11 @@ input[type="button"]:focus {
 }
 
 /*Pop-up Rating Box (Display Page)*/
+#ratings
+{
+    display: none;
+}
+
 #popupBoxTwoPosition{
     top: 0;
     left: 0;

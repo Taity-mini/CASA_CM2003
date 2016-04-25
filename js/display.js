@@ -15,6 +15,7 @@ var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); /
 var markers = [];
 var directionsService;
 var directionsDisplay;
+var route;
 
 /*
 * Current URL Structure:
@@ -108,7 +109,7 @@ function getFireBaseDB(ID)
                 featureType: 'transit.station',
                 stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
             }],
-            disableDoubleClickZoom: true
+            fullscreenControl: true
         };
 
 
@@ -128,6 +129,39 @@ function getFireBaseDB(ID)
 
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
+
+        /*Listeners*/
+
+        /*Next pub event */
+        var count = 0;
+        google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
+            console.log(markers.length);
+            console.log(count);
+            if(count <= markers.length)
+            {
+               console.log(directionsDisplay.directions.geocoded_waypoints[count]);
+
+                //map.setCenter(markers[1].location);
+                var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
+
+                console.log(nextPub);
+                map.setCenter(nextPub);
+                map.setZoom(16);
+                count++;
+            }
+            else
+            {
+                if (confirm('Crawl Complete! Do you want to try again?"')) {
+                   count = 0;
+                } else {
+                    alert("Woo that was fun! Please leave a rating!");
+                    map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
+                    toggle_visibility('ratings');
+                    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
+                }
+            }
+        });
+
     }
 
 
@@ -154,6 +188,7 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService, markers)
         // markers for each step.
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            route = response.routes[0];
         } else {
             window.alert('Directions request failed due to ' + status);
         }
