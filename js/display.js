@@ -13,6 +13,7 @@ var fireBaseID; //Firebase push ID
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
 //var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
 var markers = [];
+var complete = false;
 /*
 * Current URL Structure:
 * index.html?lat=57.149717&lng=-2.094278&name=pub- gives you aberdeen + crawl name
@@ -61,9 +62,22 @@ function getFireBaseDB(ID)
 
 
 
+  /*      var onComplete = function(error) {
+            if (error) {
+                console.log('Synchronization failed');
+                complete = false;
+            } else {
+                console.log('Synchronization succeeded');
+                complete = true;
+            }
+        };*/
+
+
+
         //Now get all markers/waypoints
         casaDataRef.child(ID).child('waypoints').on('value', function (snapshot) {
             snapshot.forEach(function(childSnapshot) {
+
                 var data = childSnapshot.exportVal();
                 //rebuild location
                 var lat = data.lat;
@@ -79,12 +93,16 @@ function getFireBaseDB(ID)
 
             });
             //Now draw route again..
-            calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
-            google.maps.event.trigger(map, 'resize');
+
+                console.log("complete");
+                calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
+                google.maps.event.trigger(map, 'resize');
+
+
         });
     });
 
-    console.log("Route Complete");
+   // console.log("Route Complete");
 }
 
 
