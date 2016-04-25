@@ -10,8 +10,8 @@ var map;
 var crawlName;
 var crawlLocation;
 var fireBaseID; //Firebase push ID
-//var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
-var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
+var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
+//var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
 var markers = [];
 /*
 * Current URL Structure:
@@ -80,6 +80,7 @@ function getFireBaseDB(ID)
             });
             //Now draw route again..
             calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
+            google.maps.event.trigger(map, 'resize');
         });
     });
 
