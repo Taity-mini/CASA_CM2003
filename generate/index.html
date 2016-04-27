@@ -14,7 +14,7 @@
     <!--JQuery CDN-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
 
-    <!--Javascript functions-->
+    <!--Javascript methods-->
     <script src="../js/methods.js"></script>
 
     <!--Generate route script-->
@@ -60,10 +60,10 @@
 
             <div class="grid-container text-center">
                 <ul class="pub-list" id="route-list"></ul>
-                <form  method="get" id="start-form">
-                    <p>Crawl Name <input type="text" class="crawlname" required></p>
+                <form  id="start-form">
+                    <p>Crawl Name <input type="text" class="crawlname" id="crawlname" required></p>
+                    <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
                 </form>
-                <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
             </div>
         </div>
     </div>

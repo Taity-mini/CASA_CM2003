@@ -38,6 +38,7 @@ $(document).ready(function(){
         clearRoute();
         $('#route').hide();
     });
+    
 });
 
 /*
