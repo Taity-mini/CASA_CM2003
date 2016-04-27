@@ -161,14 +161,38 @@ footer a:hover{
     padding: 1em;
 
 }
-
+/*
+    Front page
+*/
+#choose-a-route .button{
+    width: 50vw;
+}
 
 /*
     Controls
     This is for all the custom elements that are added to the map
 */
 
+/*
+    Google Controls overrides
+*/
+/*Map type*/
+.gm-style-mtc div{
+    background-color: black!important;
+    color: white!important;
+}
+.gm-style-mtc div:hover{
+    background-color: white!important;
+    color: #EB7D2F!important;
+}
+/*Zoom buttons*/
+.gm-bundled-control-on-bottom div{
+    background-color: black;
+    color: white;
+}
+
 .controls {
+    font-family: chawp;
     margin-top: 10px;
     border: 1px solid transparent;
     border-radius: 2px 0 0 2px;
@@ -180,23 +204,23 @@ footer a:hover{
 }
 
 #location-search {
-    background-color: #fff;
-    font-family: Roboto;
+    background-color: black;
+    color: white;
     font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 30vw;
 }
 
 #location-search:focus {
-    border-color: #4d90fe;
+    border-color: #EB7D2F;
+    color: white;
 }
 
 #num-pubs-container{
-    background-color: #fff;
-    font-family: Roboto;
+    background-color: black;
+    color: white;
+    font-family: chawp;
     font-size: 15px;
     font-weight: 300;
     margin-left: 10px;
@@ -204,6 +228,8 @@ footer a:hover{
 }
 
 #num-pubs{
+    background-color: black;
+    color: white;
     height: 100%;
 }
 
@@ -246,7 +272,7 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-    color: #333;
+    color: #EB7D2F;
     border-color: #888;
     outline: 0; }
 .button-blackboard{

@@ -5,10 +5,10 @@
  */
 var map;
 var infowindow;
-var markers = [];
+var markers = []; // used for route waypoints
+var findMarkers = []; // used for markers displayed when finding pubs
 var directionsService;
 var directionsDisplay;
-var waypoints;
 
 $(document).ready(function(){
 
@@ -16,7 +16,7 @@ $(document).ready(function(){
     
     $('#route-find').on("click",function(){
         var place = map.getCenter();
-        searchRadius(place,9999,5000,true);
+        searchRadius(place,20,2000,true);
     });
     
     $('#route-clear').on("click",function(){

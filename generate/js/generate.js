@@ -38,7 +38,10 @@ $(document).ready(function(){
         clearRoute();
         $('#route').hide();
     });
-    
+
+    $('#infowindowButton').on('click',function () {
+        console.log("pub");
+    });
 });
 
 /*

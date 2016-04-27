@@ -5,7 +5,12 @@ function clearRoute(){
     if(typeof directionsDisplay !== 'undefined'){
         directionsDisplay.setMap(null);
     }
-
+    if(typeof findMarkers != 'undefined'){
+        for(i = 0;i<findMarkers.length;i++){
+            findMarkers[i].setMap(null);
+        }
+        findMarkers = [];
+    }
     markers = [];
     $('#route-list').empty();
 }
@@ -48,12 +53,12 @@ function searchRadius(place,numPubs,radius,mapMarkers){
             for (var i = 0; i < numPubs; i++) {
 
                 if(mapMarkers == true) {
-                    addMarker(response[i].geometry.location, map, response[i].name);
-                    markers.push({
-                        location: response[i].geometry.location,
-                        stopover: true,
-                        name: response[i].name
-                    });
+                    addMarker(response[i].geometry.location, map, response[i]);
+                    // markers.push({
+                    //     location: response[i].geometry.location,
+                    //     stopover: true,
+                    //     name: response[i].name
+                    // });
                 }
                 else{
                     markers.push({
@@ -83,7 +88,7 @@ function searchRadius(place,numPubs,radius,mapMarkers){
 * */
 function calculateAndDisplayRoute(directionsDisplay, directionsService) {
     //first copy markers to waypoints array
-    waypoints = [];
+    var waypoints = [];
     waypoints = jQuery.extend([], markers);
     //set the start and end location of the route based on the markers
     var start = markers[0].location;
@@ -114,17 +119,31 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
 }
 
 // Adds a marker to the map.
-function addMarker(location, map, pubName) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
+function addMarker(location, map, pub) {
+
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        title: pubName
+        title: pub.name
     });
+
+    findMarkers.push(marker);
 
     // This event listener opens an info window
     marker.addListener('click', function() {
+        infowindow.setContent(
+            '<b>' + pub.name + '</b></br>'
+            +'Rating: ' + pub.rating + '</br>'
+            // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
+            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub(pub)">'
+        );
         infowindow.open(map, marker);
+    });
+}
+
+function addPub(){
+    markers.push({
+        location: response[i].geometry.location,
+        stopover: true
     });
 }
