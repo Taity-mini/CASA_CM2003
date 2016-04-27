@@ -45,6 +45,9 @@ function searchRadius(place,numPubs,radius,mapMarkers){
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
+    //letter array for easily identify the pub names
+    var letter = ["A","B","C","D","E","F","G","H","I","J"];
+
     service.nearbySearch({
         location: place,
         radius: radius,
@@ -67,7 +70,7 @@ function searchRadius(place,numPubs,radius,mapMarkers){
                         stopover: true
                     });
 
-                    $('#route-list').append('<li>' + response[i].name + '</li>');
+                    $('#route-list').append('<li><span style="color:green;">' + letter[i] + ':</span> ' + response[i].name + '</li>');
                     $('#route').show();
                 }
 
