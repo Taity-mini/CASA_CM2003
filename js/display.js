@@ -16,6 +16,7 @@ var markers = [];
 var directionsService;
 var directionsDisplay;
 var route;
+var responseData;
 
 /*
 * Current URL Structure:
@@ -64,7 +65,7 @@ function getFireBaseDB(ID)
         $(".crawlLocation").html(crawlLocation);
 
     });
-    
+
     /*Crawl Information Fetch from firebase ENDS*/
 
     /*Crawl Waypoints Fetch from firebase STARTS*/
@@ -137,6 +138,7 @@ function getFireBaseDB(ID)
             console.log(markers.length);
             console.log(count);
             console.log()
+            var max  = markers.length+ 1;
        /*     if(count == markers.length + 1)
             {
                 console.log(route.end_location.lat());
@@ -156,7 +158,14 @@ function getFireBaseDB(ID)
                 map.setZoom(16);
                 count++;
             }
-
+            else if(count == max)
+            {
+                var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
+                console.log(nextPub);
+                map.setCenter(nextPub);
+                map.setZoom(16);
+                count++;
+            }
             else
             {
                 if (confirm('Crawl Complete! Do you want to try again?"')) {
@@ -196,6 +205,7 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService, markers)
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
             route = response.routes[0];
+            responseData = response;
         } else {
             window.alert('Directions request failed due to ' + status);
         }
