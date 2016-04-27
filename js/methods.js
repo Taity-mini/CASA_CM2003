@@ -1,4 +1,5 @@
 var waypoints;
+var placeNames = [];
 /*
  * Clear all of the markers of the map and clear the pub list
  * */
@@ -69,6 +70,9 @@ function searchRadius(place,numPubs,radius,mapMarkers){
                         location: response[i].geometry.location,
                         stopover: true
                     });
+                    placeNames.push({
+                        pubName: response[i].name
+                    })
 
                     $('#route-list').append('<li><span style="color:green;">' + letter[i] + ':</span> ' + response[i].name + '</li>');
                     $('#route').show();

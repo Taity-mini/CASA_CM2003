@@ -9,10 +9,10 @@ var markers = [];
 var directionsService;
 var directionsDisplay;
 
-
 $(document).ready(function(){
+
     $('#route').hide();
-    console.log();
+
     //Add number of pubs to the dropdown
     populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
     

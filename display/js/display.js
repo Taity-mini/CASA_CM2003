@@ -17,7 +17,9 @@ var directionsService;
 var directionsDisplay;
 var route;
 var responseData;
-
+var placeID;
+var placesNames = [];
+var placeName;
 /*
 * Current URL Structure:
 *
@@ -45,6 +47,7 @@ function setup()
 {
     fireBaseID = GetURLParameter("id");
     getFireBaseDB(fireBaseID);
+
 }
 
 
@@ -77,20 +80,23 @@ function getFireBaseDB(ID)
                 var lng =  data.lng;
                 var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
                 var stopover = data.stopover;
+                var name = data.PubName;
                 //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
                 //add marker details to marker array
                 markers.push({
                     location: location,
                     stopover: stopover
                 });
+                placesNames.push({
+                    pubName: name
+                })
                 console.log("Inside snapshot: " +markers);
             });
             /*Crawl Waypoints Fetch from firebase ENDS*/
             console.log("outside snapshot: " +markers);
             calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
-
             google.maps.event.trigger(map, 'resize');
-            //Now draw route again..
+            displayTweets(placesNames[0].pubName);
             console.log("complete");
         });
 }
@@ -115,6 +121,8 @@ function getFireBaseDB(ID)
         map = new google.maps.Map(document.getElementById('map'), myOptions);
         directionsService = new google.maps.DirectionsService;
         directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+        geocoder = new google.maps.Geocoder;
+
 
 
         //Markers
@@ -131,25 +139,21 @@ function getFireBaseDB(ID)
 
         /*Listeners*/
 
+        function geocodePlaceId(geocoder, map, infowindow) {
+        }
+        
         /*Next pub event */
         var count = 0;
         google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
             console.log(markers.length);
             console.log(count);
-            console.log()
             var max  = markers.length+ 1;
-       /*     if(count == markers.length + 1)
-            {
-                console.log(route.end_location.lat());
-                var nextPub= new google.maps.LatLng(+route.end_location.lat(), +route.end_location.lng());
-                console.log(nextPub);
-                map.setZoom(16);
-            }*/
+
             if(count <= markers.length)
             {
-               console.log(directionsDisplay.directions.geocoded_waypoints[count]);
-
-                //map.setCenter(markers[1].location);
+                document.getElementById("twitter").innerHTML = "Tweets for Pub:" + placesNames[count].pubName;
+                console.log("Name"+ placesNames[count].pubName)
+                displayTweets(placesNames[count].pubName);
                 var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
 
                 console.log(nextPub);
@@ -159,6 +163,9 @@ function getFireBaseDB(ID)
             }
             else if(count == max)
             {
+                console.log("Name"+ placesNames[count].pubName);
+                displayTweets(placesNames[count].pubName)
+
                 var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
                 console.log(nextPub);
                 map.setCenter(nextPub);
@@ -174,7 +181,13 @@ function getFireBaseDB(ID)
                     map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
                     toggle_visibility('ratings');
                     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
-                }
+                } placeID = directionsDisplay.directions.geocoded_waypoints[count].place_id;
+                console.log(placeID);
+                //getPlace(placeID);
+
+                var request = placeID;
+                service = new google.maps.places.PlacesService(map);
+                service.getDetails(request, callback);
             }
         });
     }
@@ -224,4 +237,37 @@ function toggle_visibility(id) {
         //$(e).children.("span").innerHTML(crawlName);
         $(".crawlname").html(crawlName);
 }
+
+
+/*Twitter Display tweets based on place name as keyword*/
+function displayTweets(placeName)
+{
+
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                var tweets = JSON.parse(xhttp.responseText);
+                var tweetstring = "";
+                //Limit tweets by 5 and display in list
+                if(tweets.length > 0)
+                {
+                    for (var i = 0; i < 5; i++) {
+                        tweetstring += "<li><b>" + tweets[i].name + "</b>";
+                        tweetstring += "<ul><li>" + tweets[i].text + "</li></ul></li>";
+                    }
+                    document.getElementById("twitter").innerHTML = tweetstring;
+                }
+                else
+                {
+                    document.getElementById("twitter").innerHTML = "No tweets found for this pub";
+                }
+
+            }
+        };
+        xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
+        xhttp.send();
+}
+
+
 
