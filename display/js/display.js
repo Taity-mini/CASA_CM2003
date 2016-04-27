@@ -17,9 +17,9 @@ var directionsService;
 var directionsDisplay;
 var route;
 var responseData;
-var placeID;
 var placesNames = [];
 var placeName;
+var defaultCenter;
 /*
 * Current URL Structure:
 *
@@ -47,7 +47,6 @@ function setup()
 {
     fireBaseID = GetURLParameter("id");
     getFireBaseDB(fireBaseID);
-
 }
 
 
@@ -94,8 +93,12 @@ function getFireBaseDB(ID)
             });
             /*Crawl Waypoints Fetch from firebase ENDS*/
             console.log("outside snapshot: " +markers);
+
             calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
             google.maps.event.trigger(map, 'resize');
+
+            //Display first pub's tweets
+            $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
             displayTweets(placesNames[0].pubName);
             console.log("complete");
         });
@@ -139,9 +142,6 @@ function getFireBaseDB(ID)
 
         /*Listeners*/
 
-        function geocodePlaceId(geocoder, map, infowindow) {
-        }
-        
         /*Next pub event */
         var count = 0;
         google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
@@ -149,9 +149,15 @@ function getFireBaseDB(ID)
             console.log(count);
             var max  = markers.length+ 1;
 
+
             if(count <= markers.length)
             {
-                document.getElementById("twitter").innerHTML = "Tweets for Pub:" + placesNames[count].pubName;
+                if(count == 0)
+                {
+                    defaultCenter =map.getCenter();
+                }
+
+                $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
                 console.log("Name"+ placesNames[count].pubName)
                 displayTweets(placesNames[count].pubName);
                 var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
@@ -163,6 +169,7 @@ function getFireBaseDB(ID)
             }
             else if(count == max)
             {
+                $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
                 console.log("Name"+ placesNames[count].pubName);
                 displayTweets(placesNames[count].pubName)
 
@@ -176,18 +183,15 @@ function getFireBaseDB(ID)
             {
                 if (confirm('Crawl Complete! Do you want to try again?"')) {
                    count = 0;
+                    $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
+                    map.setCenter(defaultCenter);
+                    map.setZoom(12);
                 } else {
                     alert("Woo that was fun! Please leave a rating!");
                     map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
                     toggle_visibility('ratings');
                     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
-                } placeID = directionsDisplay.directions.geocoded_waypoints[count].place_id;
-                console.log(placeID);
-                //getPlace(placeID);
-
-                var request = placeID;
-                service = new google.maps.places.PlacesService(map);
-                service.getDetails(request, callback);
+                }
             }
         });
     }
@@ -234,16 +238,12 @@ function toggle_visibility(id) {
         e.style.display = 'none';
     else
         e.style.display = 'block';
-        //$(e).children.("span").innerHTML(crawlName);
-        $(".crawlname").html(crawlName);
 }
 
 
 /*Twitter Display tweets based on place name as keyword*/
 function displayTweets(placeName)
 {
-
-
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
