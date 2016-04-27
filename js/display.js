@@ -44,9 +44,7 @@ setup();
 function setup()
 {
     fireBaseID = GetURLParameter("id");
-
     getFireBaseDB(fireBaseID);
-
 }
 
 
@@ -66,6 +64,7 @@ function getFireBaseDB(ID)
         $(".crawlLocation").html(crawlLocation);
 
     });
+    
     /*Crawl Information Fetch from firebase ENDS*/
 
     /*Crawl Waypoints Fetch from firebase STARTS*/
@@ -137,6 +136,14 @@ function getFireBaseDB(ID)
         google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
             console.log(markers.length);
             console.log(count);
+            console.log()
+       /*     if(count == markers.length + 1)
+            {
+                console.log(route.end_location.lat());
+                var nextPub= new google.maps.LatLng(+route.end_location.lat(), +route.end_location.lng());
+                console.log(nextPub);
+                map.setZoom(16);
+            }*/
             if(count <= markers.length)
             {
                console.log(directionsDisplay.directions.geocoded_waypoints[count]);
@@ -149,6 +156,7 @@ function getFireBaseDB(ID)
                 map.setZoom(16);
                 count++;
             }
+
             else
             {
                 if (confirm('Crawl Complete! Do you want to try again?"')) {
@@ -161,7 +169,6 @@ function getFireBaseDB(ID)
                 }
             }
         });
-
     }
 
 
