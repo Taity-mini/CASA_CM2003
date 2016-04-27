@@ -1,3 +1,4 @@
+var waypoints;
 /*
  * Clear all of the markers of the map and clear the pub list
  * */
@@ -88,7 +89,7 @@ function searchRadius(place,numPubs,radius,mapMarkers){
 * */
 function calculateAndDisplayRoute(directionsDisplay, directionsService) {
     //first copy markers to waypoints array
-    var waypoints = [];
+    waypoints = [];
     waypoints = jQuery.extend([], markers);
     //set the start and end location of the route based on the markers
     var start = markers[0].location;
