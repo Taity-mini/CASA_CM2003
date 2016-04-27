@@ -66,10 +66,11 @@ function searchRadius(place,numPubs,radius,mapMarkers){
                         location: response[i].geometry.location,
                         stopover: true
                     });
+
+                    $('#route-list').append('<li>' + response[i].name + '</li>');
+                    $('#route').show();
                 }
 
-                $('#route-list').append('<li>' + response[i].name + '</li>');
-                $('#route').show();
             }
             map.setCenter(place);
             map.setZoom(13);
@@ -136,7 +137,7 @@ function addMarker(location, map, pub) {
             '<b>' + pub.name + '</b></br>'
             +'Rating: ' + pub.rating + '</br>'
             // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
-            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub(pub)">'
+            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub()">'
         );
         infowindow.open(map, marker);
     });
@@ -147,4 +148,7 @@ function addPub(){
         location: response[i].geometry.location,
         stopover: true
     });
+
+    $('#route-list').append('<li>' + response[i].name + '</li>');
+    $('#route').show();
 }
