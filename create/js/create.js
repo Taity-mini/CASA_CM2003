@@ -1,5 +1,5 @@
 /*
- * Generate Route script
+ * Create Route script
  * This takes in the location, number of pubs, and the name of the route (for use in FireBase)
  * this well then generate a random crawl based on this information
  */
@@ -13,12 +13,6 @@ var waypoints;
 $(document).ready(function(){
 
     $('#route').hide();
-
-    //Add number of pubs to the dropdown
-    populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
-    
-    // $('.pub-list').sortable();
-    // $('.pub-list').disableSelection();
 
     //when the route is clicked show the route area(the area with the map and list of pubs)
     $('#route-submit').on("click",function(){
@@ -42,70 +36,14 @@ $(document).ready(function(){
 
 
 /*
-* Clear all of the markers of the map and clear the pub list
-* */
+ * Clear all of the markers of the map and clear the pub list
+ * */
 function clearRoute(){
     if(typeof directionsDisplay !== 'undefined'){
         directionsDisplay.setMap(null);
     }
     markers = [];
     $('#route-list').empty();
-}
-
-
-/*
- *  Populate the select tag "num-pubs" with the number of pubs specified
- */
-function populateNumPubs(pubs) {
-    for (i = 1; i <= pubs; i++) {
-        //set the default select option to 5
-        if(i == 5){
-            $('#num-pubs').append('<option value="' + i + '" selected="selected">' + i + '</option>')
-        }
-        else{
-            $('#num-pubs').append('<option value="' + i + '">' + i + '</option>')
-        }
-
-    }
-}
-
-/*
-* Search for pubs around a specific area
-* takes in the place you'd like to search and the number of pubs that you would like
-* */
-function searchRadius(place,numPubs){
-    clearRoute();
-    infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-
-    service.nearbySearch({
-        location: place,
-        radius: 1000,
-        types: ['bar']//night_club
-    }, function(response, status){
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < numPubs; i++) {
-
-                markers.push({
-                    location: response[i].geometry.location,
-                    stopover: true
-                });
-
-                $('#route-list').append('<li>' + response[i].name + '</li>');
-                $('#route').show();
-            }
-            map.setCenter(place);
-            map.setZoom(13);
-            calculateAndDisplayRoute(directionsDisplay, directionsService);
-        }
-        else{
-            window.alert("Nearby search failed");
-            $('#route').hide();
-        }
-    });
 }
 
 function calculateAndDisplayRoute(directionsDisplay, directionsService) {
@@ -141,6 +79,63 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
 }
 
 
+
+
+/*
+ * Search for pubs around a specific area
+ * takes in the place you'd like to search and the number of pubs that you would like
+ * */
+function searchRadius(place,numPubs){
+    clearRoute();
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
+    service.nearbySearch({
+        location: place,
+        radius: 5000,
+        types: ['bar']//night_club
+    }, function(response, status){
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            for (var i = 0; i < numPubs; i++) {
+
+                // markers.push({
+                //     location: response[i].geometry.location,
+                //     stopover: true
+                // });
+
+                addMarker(response[i].geometry.location, map);
+
+                $('#route-list').append('<li>' + response[i].name + '</li>');
+                $('#route').show();
+            }
+            map.setCenter(place);
+            map.setZoom(13);
+            calculateAndDisplayRoute(directionsDisplay, directionsService);
+        }
+        else{
+            window.alert("Nearby search failed");
+            $('#route').hide();
+        }
+    });
+}
+
+
+
+// Adds a marker to the map.
+function addMarker(location, map) {
+    // Add the marker at the clicked location, and add the next-available label
+    // from the array of alphabetical characters.
+    var marker = new google.maps.Marker({
+        position: location,
+        // label: labels[labelIndex++ % labels.length],
+        map: map
+    });
+}
+
+
 /*
  * Google maps
  * */
@@ -149,6 +144,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 0, lng: 0},
         zoom: 2,
+        // mapTypeControl: false,
         fullscreenControl: true
     });
 
@@ -157,12 +153,17 @@ function initMap() {
 
     // Add custom map controls to the map
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('location-search'));
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('num-pubs-container'));
     map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(document.getElementById('controls-buttons-container'));
 
     /*
      * LISTENERS
      */
+
+    // This event listener calls addMarker() when the map is clicked.
+    // map.addListener('click', function(event) {
+    //     addMarker(event.latLng, map);
+    // });
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());

@@ -207,14 +207,9 @@ footer a:hover{
     height: 100%;
 }
 
-#route-submit{
+#controls-buttons-container{
     margin-bottom: 10px;
 }
-
-#route-reset{
-    margin-bottom: 10px;
-}
-
 
 /*
     Button

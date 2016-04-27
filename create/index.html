@@ -14,8 +14,8 @@
     <!--Jquery Library-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-    <!--Google Maps javascript for initialising the map-->
-    <script src="../js/map.js"></script>
+    <!--Generate route script-->
+    <script src="js/create.js"></script>
 </head>
 <body>
     <!-- Navigation container starts here holds app logo/tile -->
@@ -23,7 +23,7 @@
         <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
     </nav>
 
-    <!-- Blackboard container starts here holds options to create a pub crawl and map for displaying route -->
+    <!-- Blackboard container starts here holds options to generate a pub crawl and map for displaying route -->
     <div class="grid-container blackboard">
         <div class="strike">
             <span>Create A Route</span>
@@ -31,36 +31,30 @@
 
         <!-- Container for pub crawl options -->
         <div class="grid-container text-center">
-            <form action="#" method="GET">
-            <p>Location <input></p>
-            <p>Crawl Name <input></p>
-            <div class="grid-container">
-                <input class="button button-blackboard" type="button" value="Reset">
-                <input class="button button-blackboard" type="submit" value="Submit">
+            <div id="controls-buttons-container">
+                <input class="button-blackboard" id="route-find" type="button" value="Find Pubs">
+                <input class="button-blackboard" id="route-submit" type="button" value="Create">
             </div>
-            </form>
+
+            <input class="controls" id="location-search" type="text" placeholder="Search">
+            <div id="map"></div>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places,geometry&callback=initMap">
+            </script>
         </div>
 
         <!-- Container for map, route list and generate route link button-->
-        <div class="grid-container">
+        <div class="grid-container" id="route">
             <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
+
             <div class="grid-container text-center">
-                <form action="../display" method="GET">
-                    <div id="map"></div>
-                    <script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
-                    </script>
-                    <ul class="pub-list">
-                        <li>Pub 1: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 2: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 3: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 4: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 5: <input class="button button-blackboard" type="button" value="Delete"></li>
-                    </ul>
-                    <input class="button button-blackboard" type="submit" value="Create Route">
+                <ul class="pub-list" id="route-list"></ul>
+                <form  method="get" id="start-form">
+                    <p>Crawl Name <input type="text" class="crawlname" required></p>
                 </form>
+                <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
             </div>
         </div>
     </div>
