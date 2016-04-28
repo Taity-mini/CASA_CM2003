@@ -70,131 +70,131 @@ function getFireBaseDB(ID)
     /*Crawl Information Fetch from firebase ENDS*/
 
     /*Crawl Waypoints Fetch from firebase STARTS*/
-        casaDataRef.child(ID).child('waypoints').on('value', function (snapshot) {
-            snapshot.forEach(function(childSnapshot) {
+    casaDataRef.child(ID).child('waypoints').on('value', function (snapshot) {
+        snapshot.forEach(function(childSnapshot) {
 
-                var data = childSnapshot.exportVal();
-                //rebuild location
-                var lat = data.lat;
-                var lng =  data.lng;
-                var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
-                var stopover = data.stopover;
-                var name = data.PubName;
-                //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
-                //add marker details to marker array
-                markers.push({
-                    location: location,
-                    stopover: stopover
-                });
-                placesNames.push({
-                    pubName: name
-                })
-                console.log("Inside snapshot: " +markers);
+            var data = childSnapshot.exportVal();
+            //rebuild location
+            var lat = data.lat;
+            var lng =  data.lng;
+            var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
+            var stopover = data.stopover;
+            var name = data.PubName;
+            //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
+            //add marker details to marker array
+            markers.push({
+                location: location,
+                stopover: stopover
             });
-            /*Crawl Waypoints Fetch from firebase ENDS*/
-            console.log("outside snapshot: " +markers);
-
-            calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
-            google.maps.event.trigger(map, 'resize');
-
-            //Display first pub's tweets
-            $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
-            displayTweets(placesNames[0].pubName);
-            console.log("complete");
+            placesNames.push({
+                pubName: name
+            })
+            console.log("Inside snapshot: " +markers);
         });
+        /*Crawl Waypoints Fetch from firebase ENDS*/
+        console.log("outside snapshot: " +markers);
+
+        calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
+        google.maps.event.trigger(map, 'resize');
+
+        //Display first pub's tweets
+        $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
+        displayTweets(placesNames[0].pubName);
+        console.log("complete");
+    });
 }
 
 
-    function initMap() {
-        var myCenter;
-        var myOptions = {
-            center: {lat: 0, lng: 0},
-            zoom: 14,
-            styles: [{
-                featureType: 'poi',
-                stylers: [{visibility: 'off'}]  // Turn off points of interest.
-            }, {
-                featureType: 'transit.station',
-                stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
-            }],
-            fullscreenControl: true
-        };
+function initMap() {
+    var myCenter;
+    var myOptions = {
+        center: {lat: 0, lng: 0},
+        zoom: 14,
+        styles: [{
+            featureType: 'poi',
+            stylers: [{visibility: 'off'}]  // Turn off points of interest.
+        }, {
+            featureType: 'transit.station',
+            stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
+        }],
+        fullscreenControl: true
+    };
 
 
-        map = new google.maps.Map(document.getElementById('map'), myOptions);
-        directionsService = new google.maps.DirectionsService;
-        directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-        geocoder = new google.maps.Geocoder;
+    map = new google.maps.Map(document.getElementById('map'), myOptions);
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+    geocoder = new google.maps.Geocoder;
 
 
 
-        //Markers
-        //Marker Icon
-        var icon = {
-            url: "../img/bar.png", // url
-            size: new google.maps.Size(32, 37), // size
-            origin: new google.maps.Point(0, 0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
-        };
+    //Markers
+    //Marker Icon
+    var icon = {
+        url: "../img/bar.png", // url
+        size: new google.maps.Size(32, 37), // size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
 
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
-        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
 
-        /*Listeners*/
+    /*Listeners*/
 
-        /*Next pub event */
-        var count = 0;
-        google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
-            console.log(markers.length);
-            console.log(count);
-            var max  = markers.length+ 1;
+    /*Next pub event */
+    var count = 0;
+    google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
+        console.log(markers.length);
+        console.log(count);
+        var max  = markers.length+ 1;
 
 
-            if(count <= markers.length)
+        if(count <= markers.length)
+        {
+            if(count == 0)
             {
-                if(count == 0)
-                {
-                    defaultCenter =map.getCenter();
-                }
-
-                $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
-                console.log("Name"+ placesNames[count].pubName)
-                displayTweets(placesNames[count].pubName);
-                var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
-
-                console.log(nextPub);
-                map.setCenter(nextPub);
-                map.setZoom(16);
-                count++;
+                defaultCenter =map.getCenter();
             }
-            else if(count == max)
-            {
-                $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
-                console.log("Name"+ placesNames[count].pubName);
-                displayTweets(placesNames[count].pubName)
 
-                var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
-                console.log(nextPub);
-                map.setCenter(nextPub);
-                map.setZoom(16);
-                count++;
+            $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
+            console.log("Name"+ placesNames[count].pubName)
+            displayTweets(placesNames[count].pubName);
+            var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
+
+            console.log(nextPub);
+            map.setCenter(nextPub);
+            map.setZoom(16);
+            count++;
+        }
+        else if(count == max)
+        {
+            $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
+            console.log("Name"+ placesNames[count].pubName);
+            displayTweets(placesNames[count].pubName)
+
+            var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
+            console.log(nextPub);
+            map.setCenter(nextPub);
+            map.setZoom(16);
+            count++;
+        }
+        else
+        {
+            if (confirm('Crawl Complete! Do you want to try again?"')) {
+               count = 0;
+                $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
+                map.setCenter(defaultCenter);
+                map.setZoom(12);
+            } else {
+                alert("Woo that was fun! Please leave a rating!");
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
+                toggle_visibility('ratings');
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
             }
-            else
-            {
-                if (confirm('Crawl Complete! Do you want to try again?"')) {
-                   count = 0;
-                    $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
-                    map.setCenter(defaultCenter);
-                    map.setZoom(12);
-                } else {
-                    alert("Woo that was fun! Please leave a rating!");
-                    map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
-                    toggle_visibility('ratings');
-                    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
-                }
-            }
-        });
-    }
+        }
+    });
+}
 
 
 function calculateAndDisplayRoute(directionsDisplay, directionsService, markers) {
@@ -244,29 +244,29 @@ function toggle_visibility(id) {
 /*Twitter Display tweets based on place name as keyword*/
 function displayTweets(placeName)
 {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var tweets = JSON.parse(xhttp.responseText);
-                var tweetstring = "";
-                //Limit tweets by 5 and display in list
-                if(tweets.length > 0)
-                {
-                    for (var i = 0; i < 5; i++) {
-                        tweetstring += "<li><b>" + tweets[i].name + "</b>";
-                        tweetstring += "<ul><li>" + tweets[i].text + "</li></ul></li>";
-                    }
-                    document.getElementById("twitter").innerHTML = tweetstring;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            var tweets = JSON.parse(xhttp.responseText);
+            var tweetstring = "";
+            //Limit tweets by 5 and display in list
+            if(tweets.length > 0)
+            {
+                for (var i = 0; i < 5; i++) {
+                    tweetstring += "<li><b>" + tweets[i].name + "</b>";
+                    tweetstring += "<ul><li>" + tweets[i].text + "</li></ul></li>";
                 }
-                else
-                {
-                    document.getElementById("twitter").innerHTML = "No tweets found for this pub";
-                }
-
+                document.getElementById("twitter").innerHTML = tweetstring;
             }
-        };
-        xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
-        xhttp.send();
+            else
+            {
+                document.getElementById("twitter").innerHTML = "No tweets found for this pub";
+            }
+
+        }
+    };
+    xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
+    xhttp.send();
 }
 
 
