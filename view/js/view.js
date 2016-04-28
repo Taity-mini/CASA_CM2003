@@ -18,10 +18,12 @@ $(document).ready(function(){
     pullLocations();
 
     $('#pub-locations').change(function(){
+        clearRoute();
         pullRoutes($('#pub-locations option:selected').text());
     });
 
     $('#pub-routes').change(function(){
+        clearRoute();
         pullRouteInfo();
     });
 
@@ -89,6 +91,9 @@ function pullRoutes() {
 * */
 function pullRouteInfo(){
 
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
     casaDataRef.once("value", function(snapshot) {
         var crawl = snapshot.child($('#pub-routes').val()).val();
 
@@ -102,6 +107,35 @@ function pullRouteInfo(){
         }
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
+    });
+
+    casaDataRef.child($('#pub-routes').val()).child('waypoints').on('value', function (snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+
+            var data = childSnapshot.exportVal();
+            //rebuild location
+            var lat = data.lat;
+            var lng =  data.lng;
+            var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
+            var stopover = data.stopover;
+            var name = data.PubName;
+            //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
+            //add marker details to marker array
+            markers.push({
+                location: location,
+                stopover: stopover
+            });
+            // placesNames.push({
+            //     pubName: name
+            // })
+            console.log("Inside snapshot: " +markers);
+        });
+        /*Crawl Waypoints Fetch from firebase ENDS*/
+        console.log("outside snapshot: " +markers);
+
+        calculateAndDisplayRoute(directionsDisplay, directionsService);
+        google.maps.event.trigger(map, 'resize');
+
     });
 }
 
