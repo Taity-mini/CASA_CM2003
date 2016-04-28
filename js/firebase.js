@@ -5,15 +5,6 @@
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
 //var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
 
-$(document).ready(function(){
-    $('#start-form').on('submit',function()
-    {
-        window.location.replace('../display/?id=' + push());
-        return false;
-    });
-});
-
-
 function push(){
     var crawlName = $('.crawlname').val();
     var crawlLocation = $('#location-search').val();
@@ -36,5 +27,5 @@ function update(){
 }
 
 function pull(){
-
+    casaDataRef.forEach()
 }

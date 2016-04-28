@@ -41,6 +41,12 @@ $(document).ready(function(){
     $('#infowindowButton').on('click',function () {
         console.log("pub");
     });
+
+    $('#start-form').on('submit',function()
+    {
+        window.location.replace('../display/?id=' + push());
+        return false;
+    });
 });
 
 /*
