@@ -9,6 +9,8 @@ var markers = [];
 var directionsService;
 var directionsDisplay;
 
+var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
+
 $(document).ready(function(){
 
     $('#route').hide();
@@ -48,6 +50,23 @@ $(document).ready(function(){
         return false;
     });
 });
+
+function push(){
+    var crawlName = $('.crawlname').val();
+    var crawlLocation = $('#location-search').val();
+    var mapCenter = markers[0].location;
+
+    var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation});
+    var newKey = newPush.key();
+
+    //Get waypoints and store in firebase
+    for (i = 0; i < waypoints.length; i++) {
+
+        casaDataRef.child(newKey).child('waypoints').child(i).set({lat: waypoints[i].location.lat(),lng:waypoints[i].location.lng(), stopover: waypoints[i].stopover, PubName: placeNames[i].pubName});
+    }
+
+    return newKey;
+}
 
 /*
  * Google maps
