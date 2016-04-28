@@ -340,3 +340,11 @@ form{
 #RatingForm input{
     float:left;
 }
+
+/*
+    Twitter styling
+*/
+.tweet{
+    border: white 0.1em solid;
+    padding: 1em;
+}

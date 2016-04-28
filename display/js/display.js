@@ -255,8 +255,8 @@ function displayTweets(placeName)
             if(tweets.length > 0)
             {
                 for (var i = 0; i < 5; i++) {
-                    tweetstring += "<li><b>" + tweets[i].name + "</b>";
-                    tweetstring += "<ul><li>" + tweets[i].text + "</li></ul></li>";
+                    tweetstring += "<blockquote class='tweet'><p>" + tweets[i].name + "</p>";
+                    tweetstring += "<p>" + tweets[i].text + "</p></blockquote>";
                 }
                 document.getElementById("twitter").innerHTML = tweetstring;
             }
@@ -270,6 +270,5 @@ function displayTweets(placeName)
     xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
     xhttp.send();
 }
-
 
 
