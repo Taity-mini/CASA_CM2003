@@ -17,15 +17,19 @@ $(document).ready(function(){
 
     pullLocations();
 
-    $('#pub-locations').on("change",function(){
+    $('#pub-locations').change(function(){
         pullRoutes($('#pub-locations option:selected').text());
+    });
+
+    $('#pub-routes').change(function(){
+        pullRouteInfo();
     });
 
 });
 
 
 /*
- * Gets locations to fill the location combo box
+ * Gets locations from firebase to fill the location combo box
  * */
 function pullLocations() {
 
@@ -53,6 +57,9 @@ function pullLocations() {
 
 }
 
+/*
+ * Gets routes from firebase to fill the routes combo box
+ * */
 function pullRoutes() {
 
     $('#pub-routes').empty();
@@ -71,6 +78,28 @@ function pullRoutes() {
             }
 
         });
+        pullRouteInfo();
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+}
+
+/*
+* Get the crawl information for displaying below the map
+* */
+function pullRouteInfo(){
+
+    casaDataRef.once("value", function(snapshot) {
+        var crawl = snapshot.child($('#pub-routes').val()).val();
+
+        $('#crawl-name').html(crawl.crawlName);
+
+        if(crawl.rating){
+            $('#crawl-rating').html();
+        }
+        else{
+            $('#crawl-rating').html("No Rating");
+        }
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -89,8 +118,4 @@ function initMap() {
 
     // Add custom map controls to the map
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('controls-select-container'));
-
-    /*
-     * LISTENERS
-     */
 }
