@@ -61,14 +61,15 @@ footer a:hover{
     bottom: 3.5em;
     z-index: 2;
     float: right;
-    height: 5em;
-    width: 5em;
-    background: transparent url('../img/tinified/house1text3.png') no-repeat;
-    background-size: 100%;
+    height: 80px;
+    width: 76px;
+    background: transparent url('../img/logo_spritesheet.png') no-repeat;
+    background-position: -5px -5px;
 }
 .footer-logo:hover{
-    background: transparent url('../img/tinified/house3text3.png') no-repeat;
-    background-size: 100%;
+    width: 80px;
+    height: 76px;
+    background-position: -90px -5px;
 }
 .footer-left{
     float: left;
