@@ -27,6 +27,12 @@ $(document).ready(function(){
         pullRouteInfo();
     });
 
+    $('#start-form').on('submit',function()
+    {
+        window.location.replace('../display/?id=' + $('#pub-routes').val());
+        return false;
+    });
+
 });
 
 
@@ -119,7 +125,7 @@ function pullRouteInfo(){
             var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
             var stopover = data.stopover;
             var name = data.PubName;
-            //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
+
             //add marker details to marker array
             markers.push({
                 location: location,
@@ -128,10 +134,8 @@ function pullRouteInfo(){
             // placesNames.push({
             //     pubName: name
             // })
-            console.log("Inside snapshot: " +markers);
         });
         /*Crawl Waypoints Fetch from firebase ENDS*/
-        console.log("outside snapshot: " +markers);
 
         calculateAndDisplayRoute(directionsDisplay, directionsService);
         google.maps.event.trigger(map, 'resize');
