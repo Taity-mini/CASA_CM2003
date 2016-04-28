@@ -27,5 +27,59 @@ function update(){
 }
 
 function pull(){
-    casaDataRef.forEach()
+
+}
+
+/*
+* Gets locations to fill the location combo box
+* */
+function pullLocations() {
+
+    var locations = [];
+
+    casaDataRef.once("value", function(snapshot) {
+
+        snapshot.forEach(function (childSnapshot) {
+
+            var routeData = childSnapshot.val();
+            var routeKey = childSnapshot.key();
+
+            var loc = locations.indexOf(routeData.crawlLocation);
+
+            if(locations[loc] !== routeData.crawlLocation){
+                locations.push(routeData.crawlLocation);
+                $('#pub-locations').append('<option value="' + routeData.crawlLocation + '">' + routeData.crawlLocation + '</option>');
+            }
+
+        });
+        pullRoutes();
+        console.log("done");
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+}
+
+function pullRoutes() {
+
+    var routes = [];
+    var location =  $('#pub-locations option:selected').text();
+
+    casaDataRef.once("value", function(snapshot) {
+
+        snapshot.forEach(function (childSnapshot) {
+
+            var routeData = childSnapshot.val();
+            var routeKey = childSnapshot.key();
+
+            if(location == routeData.crawlLocation){
+                $('#pub-routes').append('<option value="' + routeKey + '">' + routeData.crawlName + '</option>');
+            }
+
+        });
+        pullRoutes();
+        console.log("done");
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 }

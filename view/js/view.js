@@ -13,6 +13,12 @@ $(document).ready(function(){
 
     $('#route').hide();
 
+    pullLocations();
+
+    $('#pub-locations').on("change",function(){
+        pullRoutes($('#pub-locations:selected').text());
+    });
+
 });
 
 /*
