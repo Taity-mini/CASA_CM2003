@@ -145,6 +145,7 @@ function initMap() {
     /*Next pub event */
     var count = 0;
     google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
+        $('#pubNext').val("Next Pub");
         console.log(markers.length);
         console.log(count);
         var max  = markers.length+ 1;
@@ -169,6 +170,7 @@ function initMap() {
         }
         else if(count == max)
         {
+            $('#pubNext').val("Rate Crawl");
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
             console.log("Name"+ placesNames[count].pubName);
             displayTweets(placesNames[count].pubName)
