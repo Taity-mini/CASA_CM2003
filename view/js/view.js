@@ -115,6 +115,10 @@ function pullRouteInfo(){
         console.log("The read failed: " + errorObject.code);
     });
 
+    //letter array for easily identify the pub names
+    var letter = ["A","B","C","D","E","F","G","H","I","J"];
+    var letterCount = 0;
+
     casaDataRef.child($('#pub-routes').val()).child('waypoints').on('value', function (snapshot) {
         snapshot.forEach(function(childSnapshot) {
 
@@ -126,14 +130,17 @@ function pullRouteInfo(){
             var stopover = data.stopover;
             var name = data.PubName;
 
+            console.log(name);
+
+            $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
+
             //add marker details to marker array
             markers.push({
                 location: location,
                 stopover: stopover
             });
-            // placesNames.push({
-            //     pubName: name
-            // })
+
+            letterCount++;
         });
         /*Crawl Waypoints Fetch from firebase ENDS*/
 
