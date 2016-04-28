@@ -19,6 +19,27 @@
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src ="js/display.js"></script>
 
+    <!--<script>-->
+        <!--window.onload = function() {-->
+            <!--var xhttp = new XMLHttpRequest();-->
+            <!--xhttp.onreadystatechange = function() {-->
+                <!--if (xhttp.readyState == 4 && xhttp.status == 200) {-->
+                    <!--var tweets = JSON.parse(xhttp.responseText);-->
+                    <!--var tweetstring = "";-->
+                    <!--//Limit tweets by 5 and display in list-->
+                    <!--for (var i =0; i< 5 ; i++)-->
+                    <!--{-->
+                        <!--tweetstring += "<li><b>" + tweets[i].name + "</b>";-->
+                        <!--tweetstring += "<ul><li>" + tweets[i].text + "</li></ul></li>";-->
+                    <!--}-->
+                    <!--document.getElementById("twitter").innerHTML = tweetstring;-->
+                <!--}-->
+            <!--};-->
+            <!--xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q=pub", true);-->
+            <!--xhttp.send();-->
+        <!--}-->
+    <!--</script>-->
+
 </head>
 <body>
     <!-- Navigation container starts here holds app logo/tile -->
@@ -62,11 +83,11 @@
 
             </div>
             <div class="grid-container text-center">
-            <a class="twitter-timeline"  href="https://twitter.com/FrTedQOTD" data-widget-id="715104481025867776">Tweets by @FrTedQOTD</a>
-
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                <a class="twitter-timeline"  href="https://twitter.com/Cats" data-widget-id="715109350575091712">Tweets by @Cats</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                <div id="tweets">
+                    <p id="TweetName">Tweets</p>
+                    <ul id ="twitter">
+                    </ul>
+               </div>
             </div>
         </div>
     </div>

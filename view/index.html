@@ -11,8 +11,11 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
 
-    <!--Google Maps javascript for initialising the map-->
-    <script src="../js/map.js"></script>
+    <!--Javascript methods-->
+    <script src="../js/methods.js"></script>
+
+    <!--View previous route script-->
+    <script src="js/view.js"></script>
 </head>
 <body>
 <!-- Navigation container starts here holds app logo/tile -->
@@ -21,60 +24,38 @@
     </nav>
     <!-- Blackboard container starts here holds options to select a pub crawl and map for displaying route -->
     <div class="grid-container blackboard">
-        <div class="strike">
-            <span>View A Previous Route</span>
-        </div>
-        <!-- Container for pub crawl options -->
-        <div class="grid-container text-center">
-            <p>Location
-                <select>
-                    <option value="">Location 1</option>
-                    <option value="">Location 2</option>
-                    <option value="">Location 3</option>
-                    <option value="">Location 4</option>
-                    <option value="">Location 5</option>
-                </select>
-            </p>
-            <p>Choose Route
-                <select>
-                    <option value="">Route 1</option>
-                    <option value="">Route 2</option>
-                    <option value="">Route 3</option>
-                    <option value="">Route 4</option>
-                </select>
-            </p>
-        </div>
-        <!-- Container for pup crawl information-->
-        <div class="grid-container">
-            <div class="strike">
-                <span>Pub Crawl Info</span>
-                <p>Name: THE REAL PUB CRAWL, THE BEST PUB CRAWL</p>
-                <p>Rating: *****</p>
-            </div>
-        </div>
         <!-- Container for map, route list and generate route link button-->
-        <div class="grid-container">
+        <div class="strike">
+            <span>View Previous Route</span>
+        </div>
+        <div class="grid-container text-center">
+            <div class="controls controls-select-container" id="controls-select-container">
+                <label>Location <select class="controls-select" id="pub-locations"></select></label>
+                <label>Route <select class="controls-select" id="pub-routes"></select></label>
+            </div>
+            <div id="map"></div>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
+            </script>
+
+            <!-- Container for pup crawl information-->
+            <div class="grid-container">
+                <div class="strike">
+                    <span>Pub Crawl Info</span>
+                    <p>Name: THE REAL PUB CRAWL, THE BEST PUB CRAWL</p>
+                    <p>Rating: *****</p>
+                </div>
+            </div>
+
             <div class="strike">
                 <span>Pub Crawl Route</span>
             </div>
-            <div class="grid-container text-center">
-                <form action="../display" method="GET">
-                    <div id="map"></div>
-                    <script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&callback=initMap">
-                    </script>
 
-                    <ul class="pub-list">
-                        <li>Pub 1: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 2: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 3: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 4: <input class="button button-blackboard" type="button" value="Delete"></li>
-                        <li>Pub 5: <input class="button button-blackboard" type="button" value="Delete"></li>
-                    </ul>
+            <ul class="pub-list"></ul>
 
-                    <input class="button button-blackboard" type="submit" value="Begin Crawl">
-                </form>
-            </div>
+            <form method="GET">
+                <input class="button button-blackboard" type="submit" value="Begin Crawl">
+            </form>
         </div>
     </div>
     <!-- Footer container starts here holds shelf, terms and conditions link and group logo-->
