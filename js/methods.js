@@ -129,29 +129,40 @@ function addMarker(location, map, pub) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
+        animation: google.maps.Animation.DROP,
         title: pub.name
     });
 
     findMarkers.push(marker);
 
+    //used for checking if the pub has a rating or not
+    var rating = pub.rating;
+
+    if(typeof rating === 'undefined'){
+        rating = "No Rating";
+    }
+
     // This event listener opens an info window
     marker.addListener('click', function() {
         infowindow.setContent(
             '<b>' + pub.name + '</b></br>'
-            +'Rating: ' + pub.rating + '</br>'
+            +'Rating: ' + rating + '</br>'
             // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
-            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub()">'
+            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub(this)">'
         );
         infowindow.open(map, marker);
     });
 }
 
-function addPub(){
+function addPub(marker){
+
+    console.log(marker);
+
     markers.push({
-        location: response[i].geometry.location,
+        location: marker.location,
         stopover: true
     });
 
-    $('#route-list').append('<li>' + response[i].name + '</li>');
+    $('#route-list').append('<li>' + marker.location + '</li>');
     $('#route').show();
 }
