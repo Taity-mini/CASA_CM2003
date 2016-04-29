@@ -156,16 +156,20 @@ function addMarker(location, map, pub) {
             +'Rating: ' + rating + '</br>'
             // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
             +'<input class="button button-blackboard markerbut" id="marker-add" type="button" value="Add Pub" >');
+        infowindow.open(map, marker);
         $('#marker-add').on("click",function () {
             $(this).hide();
             addPub(location,pub.name);
         });
-        infowindow.open(map, marker);
     });
 
 }
 
 function addPub(publoc,pubname){
+
+    placeNames.push({
+        pubName: pubname
+    })
 
     markers.push({
         location: publoc,
@@ -188,10 +192,9 @@ function push(){
 
     var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation});
     var newKey = newPush.key();
-
+    
     //Get waypoints and store in firebase
     for (i = 0; i < waypoints.length; i++) {
-
         casaDataRef.child(newKey).child('waypoints').child(i).set({lat: waypoints[i].location.lat(),lng:waypoints[i].location.lng(), stopover: waypoints[i].stopover, PubName: placeNames[i].pubName});
     }
 
