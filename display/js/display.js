@@ -170,7 +170,11 @@ function initMap() {
         }
         else if(count == max)
         {
-            $('#pubNext').val("Rate Crawl");
+
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
+            toggle_visibility('ratings');
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
+
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
             console.log("Name"+ placesNames[count].pubName);
             displayTweets(placesNames[count].pubName)
@@ -180,20 +184,6 @@ function initMap() {
             map.setCenter(nextPub);
             map.setZoom(16);
             count++;
-        }
-        else
-        {
-            if (confirm('Crawl Complete! Do you want to try again?"')) {
-               count = 0;
-                $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
-                map.setCenter(defaultCenter);
-                map.setZoom(12);
-            } else {
-                alert("Woo that was fun! Please leave a rating!");
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
-                toggle_visibility('ratings');
-                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
-            }
         }
     });
 }
