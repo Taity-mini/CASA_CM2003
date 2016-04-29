@@ -123,6 +123,8 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
             directionsDisplay.setDirections(response);
             window.location.hash = 'route';
             route = response.routes[0];
+            
+
         } else {
             window.alert('Directions request failed due to ' + status);
         }

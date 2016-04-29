@@ -11,14 +11,11 @@ var crawlName;
 var crawlLocation;
 var fireBaseID; //Firebase push ID
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
-//var casaDataRef = new Firebase('https://pub-crawl.firebaseio.com/routes'); //Local Dev
 var markers = [];
 var directionsService;
 var directionsDisplay;
 var route;
-var responseData;
 var placesNames = [];
-var placeName;
 var defaultCenter;
 /*
 * Current URL Structure:
@@ -207,7 +204,22 @@ function displayTweets(placeName)
             {
                 for (var i = 0; i < 5; i++) {
                     tweetstring += "<blockquote class='tweet'><p>" + tweets[i].name + "</p>";
-                    tweetstring += "<p>" + tweets[i].text + "</p></blockquote>";
+
+
+                    var words = tweets[i].text.split(/\s+/);
+                    for (var i=0; i<words.length; i++) {
+                        var word = words[i];
+                        if (word.substr(0, 7) == 'http://' || word.substr(0, 8) == 'https://') {
+                            words[i] = '<a href="'+word+'">'+word+'</a> ';
+                        }
+                    }
+                    var text = words.join(' ');
+
+
+                    tweetstring += "<p>" + text + "</p></blockquote>";
+
+
+
                 }
                 document.getElementById("twitter").innerHTML = tweetstring;
             }
