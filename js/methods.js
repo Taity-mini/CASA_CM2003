@@ -149,25 +149,52 @@ function addMarker(location, map, pub) {
 
     // This event listener opens an info window
     marker.addListener('click', function() {
+
+        var mar = this;
+
         infowindow.setContent(
             '<b>' + pub.name + '</b></br>'
             +'Rating: ' + rating + '</br>'
             // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
-            +'<input class="button button-blackboard" type="button" value="Add Pub" onclick="addPub(this)">'
-        );
+            +'<input class="button button-blackboard markerbut" id="marker-add" type="button" value="Add Pub" >');
+        $('#marker-add').on("click",function () {
+            $(this).hide();
+            addPub(location,pub.name);
+        });
         infowindow.open(map, marker);
     });
+
 }
 
-function addPub(marker){
-
-    console.log(marker);
+function addPub(publoc,pubname){
 
     markers.push({
-        location: marker.location,
+        location: publoc,
         stopover: true
     });
 
-    $('#route-list').append('<li>' + marker.location + '</li>');
+    $('#route-list').append('<li>' + pubname + '</li>');
     $('#route').show();
+}
+
+var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
+
+function push(){
+
+    var waypoints = [];
+    waypoints = jQuery.extend([], markers);
+
+    var crawlName = $('.crawlname').val();
+    var crawlLocation = $('#location-search').val();
+
+    var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation});
+    var newKey = newPush.key();
+
+    //Get waypoints and store in firebase
+    for (i = 0; i < waypoints.length; i++) {
+
+        casaDataRef.child(newKey).child('waypoints').child(i).set({lat: waypoints[i].location.lat(),lng:waypoints[i].location.lng(), stopover: waypoints[i].stopover, PubName: placeNames[i].pubName});
+    }
+
+    return newKey;
 }

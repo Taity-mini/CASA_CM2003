@@ -22,6 +22,12 @@ $(document).ready(function(){
     $('#route-clear').on("click",function(){
         clearRoute();
     });
+
+    $('#start-form').on('submit',function()
+    {
+        window.location.replace('../display/?id=' + push());
+        return false;
+    });
 });
 
 /*
