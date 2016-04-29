@@ -271,4 +271,21 @@ function displayTweets(placeName)
     xhttp.send();
 }
 
+// Add rating to route on fire base
+$(document).ready(function(){
+    $('#RatingSubmit').on("click", function()
+    {
+        addRating();
 
+    });
+});
+function addRating() {
+    var rating = $('#Rating').val();
+    console.log("Rating: " + rating + "ID: " + fireBaseID);
+    var ratingRef = casaDataRef.child(fireBaseID);
+    ratingRef.update({
+        crawlRating: rating
+    });
+    toggle_visibility('popupBoxTwoPosition');
+    console.log("Rating: " + rating + "ID: " + fireBaseID);
+}
