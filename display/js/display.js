@@ -80,7 +80,7 @@ function getFireBaseDB(ID)
             var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
             var stopover = data.stopover;
             var name = data.PubName;
-            //console.log("Data:" + data +"Lat: " + lat + "lng" + lat + "Location:" + location);
+
             //add marker details to marker array
             markers.push({
                 location: location,
@@ -89,18 +89,15 @@ function getFireBaseDB(ID)
             placesNames.push({
                 pubName: name
             })
-            console.log("Inside snapshot: " +markers);
         });
         /*Crawl Waypoints Fetch from firebase ENDS*/
-        console.log("outside snapshot: " +markers);
-
         calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
         google.maps.event.trigger(map, 'resize');
 
         //Display first pub's tweets
         $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
         displayTweets(placesNames[0].pubName);
-        console.log("complete");
+
     });
 }
 
@@ -146,10 +143,7 @@ function initMap() {
     var count = 0;
     google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
         $('#pubNext').val("Next Pub");
-        console.log(markers.length);
-        console.log(count);
         var max  = markers.length+ 1;
-
 
         if(count <= markers.length)
         {
@@ -159,11 +153,11 @@ function initMap() {
             }
 
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
-            console.log("Name"+ placesNames[count].pubName)
+
             displayTweets(placesNames[count].pubName);
             var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
 
-            console.log(nextPub);
+
             map.setCenter(nextPub);
             map.setZoom(16);
             count++;
@@ -176,11 +170,10 @@ function initMap() {
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
 
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
-            console.log("Name"+ placesNames[count].pubName);
+
             displayTweets(placesNames[count].pubName)
 
             var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
-            console.log(nextPub);
             map.setCenter(nextPub);
             map.setZoom(16);
             count++;
@@ -254,7 +247,6 @@ function displayTweets(placeName)
             {
                 document.getElementById("twitter").innerHTML = "No tweets found for this pub";
             }
-
         }
     };
     xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
@@ -266,15 +258,15 @@ $(document).ready(function(){
     $('#RatingSubmit').on("click", function()
     {
         addRating();
-
+        window.location.replace('../');
     });
 });
 function addRating() {
     var rating = $('#Rating').val();
-    console.log("Rating: " + rating + "ID: " + fireBaseID);
+
     var ratingRef = casaDataRef.child(fireBaseID);
     casaDataRef.child(fireBaseID).child('ratings').push({crawlRating: rating});
 
     toggle_visibility('popupBoxTwoPosition');
-    console.log("Rating: " + rating + "ID: " + fireBaseID);
+
 }

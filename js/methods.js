@@ -14,6 +14,7 @@ function clearRoute(){
         findMarkers = [];
     }
     markers = [];
+    placeNames = [];
     $('#route-list').empty();
 }
 
