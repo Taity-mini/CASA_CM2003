@@ -122,6 +122,7 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
             window.location.hash = 'route';
+            route = response.routes[0];
         } else {
             window.alert('Directions request failed due to ' + status);
         }

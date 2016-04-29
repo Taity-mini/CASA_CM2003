@@ -91,7 +91,7 @@ function getFireBaseDB(ID)
             })
         });
         /*Crawl Waypoints Fetch from firebase ENDS*/
-        calculateAndDisplayRoute(directionsDisplay, directionsService, markers);
+        calculateAndDisplayRoute(directionsDisplay, directionsService);
         google.maps.event.trigger(map, 'resize');
 
         //Display first pub's tweets
@@ -134,7 +134,7 @@ function initMap() {
         anchor: new google.maps.Point(0, 0) // anchor
     };
 
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('pubArrived'));
+
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
 
     /*Listeners*/
@@ -182,38 +182,6 @@ function initMap() {
 }
 
 
-function calculateAndDisplayRoute(directionsDisplay, directionsService, markers) {
-
-    //set the start and end location of the route based on the markers
-    var start = markers[0].location;
-    var end = markers[markers.length-1].location;
-
-    //remove the first and last locations for using the rest as waypoints
-    markers.shift();
-    markers.pop();
-
-    // Retrieve the start and end locations and create a DirectionsRequest using
-    // WALKING directions.
-    directionsService.route({
-        origin: start,
-        destination: end,
-        waypoints: markers,
-        optimizeWaypoints: true,
-        travelMode: google.maps.TravelMode.WALKING
-    }, function(response, status) {
-        // Route the directions and pass the response to a function to create
-        // markers for each step.
-        if (status === google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-            route = response.routes[0];
-            responseData = response;
-        } else {
-            window.alert('Directions request failed due to ' + status);
-        }
-    });
-}
-
-
 //Ratings Box Popup
 function toggle_visibility(id) {
     var e = document.getElementById(id);
@@ -247,6 +215,7 @@ function displayTweets(placeName)
             {
                 document.getElementById("twitter").innerHTML = "No tweets found for this pub";
             }
+
         }
     };
     xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
@@ -261,6 +230,7 @@ $(document).ready(function(){
         window.location.replace('../');
     });
 });
+
 function addRating() {
     var rating = $('#Rating').val();
 
@@ -268,5 +238,4 @@ function addRating() {
     casaDataRef.child(fireBaseID).child('ratings').push({crawlRating: rating});
 
     toggle_visibility('popupBoxTwoPosition');
-
 }

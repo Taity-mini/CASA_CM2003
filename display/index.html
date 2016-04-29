@@ -18,6 +18,8 @@
     <!-- FireBase scripts-->
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <!--Display javascript for passing url parameters to map-->
+
+    <script src ="../js/methods.js"></script>
     <script src ="js/display.js"></script>
 
 </head>
@@ -40,7 +42,6 @@
                 <p>Location: <span class="crawlLocation"></span> </p>
                 <p><a href="javascript:void(0)"><input onclick="toggle_visibility('popupBoxTwoPosition');" class="button-blackboard button-right" type="button" id="ratings" value="Rate Crawl"></a></p>
 
-                <!--<input class="button-blackboard button-left" type="button" id="pubArrived" value="Arrived">-->
                 <input class="button-blackboard button-right" type="button" id="pubNext" value="Begin Crawl">
             </div>
         </div>
@@ -103,30 +104,6 @@
                     </p>
                     <br/>
                     <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
-                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="finishCrawl">
-        <div class="popupBoxTwoWrapper">
-            <div class="blackboard">
-                <form id = "RatingForm" action = "#" method = "get">
-                    <h2>Rate Pub Crawl:</h2>
-                    <p>Crawl Name: <span class="crawlname"></span></p>
-                    <p>Location: <span class="crawlLocation"></span></p>
-                    <p>Rating:
-                        <select id = "Rating">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </p>
-                    <br/>
-                    <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "finishCrawl"/>
                     <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
                 </form>
             </div>
