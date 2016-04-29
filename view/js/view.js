@@ -8,6 +8,7 @@ var infowindow;
 var markers = [];
 var directionsService;
 var directionsDisplay;
+var ratings = [];
 
 var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
 
@@ -97,6 +98,7 @@ function pullRoutes() {
 * */
 function pullRouteInfo(){
 
+
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
@@ -105,15 +107,42 @@ function pullRouteInfo(){
 
         $('#crawl-name').html(crawl.crawlName);
 
-        if(crawl.rating){
-            $('#crawl-rating').html();
-        }
-        else{
-            $('#crawl-rating').html("No Rating");
-        }
+      /*  if(crawl.crawlRating){
+         $('#crawl-rating').html(crawl.crawlRating);
+         }
+         else{
+         $('#crawl-rating').html("No Rating");
+         }*/
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
+
+
+    //Ratings
+
+    casaDataRef.child($('#pub-routes').val()).child('ratings').on('value', function (snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var data = childSnapshot.exportVal();
+            var rating = data.crawlRating;
+            console.log("Rating"+rating);
+            ratings.push(rating);
+        });
+        var total = 0;
+        for(var i = 0; i < ratings.length; i++) {
+            console.log(ratings[i]);
+            total +=  parseInt(ratings[i]);
+            console.log("Total: " + total);
+        }
+        var avg = Math.round(total / ratings.length);
+        console.log("Average: " + avg);
+        $('#crawl-rating').html (avg);
+    });
+
+
+//Calculate rating avg
+
+
+
 
     //letter array for easily identify the pub names
     var letter = ["A","B","C","D","E","F","G","H","I","J"];
