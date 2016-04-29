@@ -41,7 +41,7 @@ a{
     color: white;
 }
 a:hover{
-    color: white;
+    color: #EB7D2F;
 }
 a:visited{
     color: white;
@@ -52,9 +52,6 @@ a:visited{
 footer{
     font-family: serif;
     margin-top: 3em;
-}
-footer a:hover{
-    color: #EB7D2F;
 }
 .footer-logo{
     position: relative;
@@ -348,4 +345,7 @@ form{
 .tweet{
     border: white 0.1em solid;
     padding: 1em;
+}
+.tweet a{
+    text-decoration: underline;
 }
