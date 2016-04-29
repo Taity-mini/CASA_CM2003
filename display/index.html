@@ -17,6 +17,7 @@
     <script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script> -->
     <!-- FireBase scripts-->
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    <!--Display javascript for passing url parameters to map-->
     <script src ="js/display.js"></script>
 
 </head>
@@ -87,27 +88,50 @@
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper">
             <div class="blackboard">
-                <form id = "RatingForm" action = "#" method = "post">
+                <form id = "RatingForm" action = "#" method = "get">
                     <h2>Rate Pub Crawl:</h2>
                     <p>Crawl Name: <span class="crawlname"></span></p>
                     <p>Location: <span class="crawlLocation"></span></p>
                     <p>Rating:
-                    <select id = "Rating">
-                        <option value="*">*</option>
-                        <option value="**">**</option>
-                        <option value="***">***</option>
-                        <option value="****">****</option>
-                        <option value="*****">*****</option>
-                    </select>
+                        <select id = "Rating">
+                            <option value="1">*</option>
+                            <option value="2">**</option>
+                            <option value="3">***</option>
+                            <option value="4">****</option>
+                            <option value="5">*****</option>
+                        </select>
                     </p>
                     <br/>
                     <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
-                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" id = "CloseButton" value ="Close"/>
+                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
                 </form>
             </div>
         </div>
     </div>
-    <!--Display javascript for passing url parameters to map-->
+
+    <div id="finishCrawl">
+        <div class="popupBoxTwoWrapper">
+            <div class="blackboard">
+                <form id = "RatingForm" action = "#" method = "get">
+                    <h2>Rate Pub Crawl:</h2>
+                    <p>Crawl Name: <span class="crawlname"></span></p>
+                    <p>Location: <span class="crawlLocation"></span></p>
+                    <p>Rating:
+                        <select id = "Rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </p>
+                    <br/>
+                    <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "finishCrawl"/>
+                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

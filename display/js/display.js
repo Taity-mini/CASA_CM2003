@@ -273,9 +273,8 @@ function addRating() {
     var rating = $('#Rating').val();
     console.log("Rating: " + rating + "ID: " + fireBaseID);
     var ratingRef = casaDataRef.child(fireBaseID);
-    ratingRef.update({
-        crawlRating: rating
-    });
+    casaDataRef.child(fireBaseID).child('ratings').push({crawlRating: rating});
+
     toggle_visibility('popupBoxTwoPosition');
     console.log("Rating: " + rating + "ID: " + fireBaseID);
 }
