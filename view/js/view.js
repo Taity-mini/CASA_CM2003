@@ -101,45 +101,50 @@ function pullRouteInfo(){
 
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-
+    var hasRatings;
     casaDataRef.once("value", function(snapshot) {
         var crawl = snapshot.child($('#pub-routes').val()).val();
+        var rating = snapshot.child($('#pub-routes').val());
 
+        hasRatings = rating.hasChild("ratings");
+        if(!hasRatings)
+        {
+            $('#crawl-rating').html("No Rating");
+        }
         $('#crawl-name').html(crawl.crawlName);
+        console.log("Has ratings:" +hasRatings);
 
-      /*  if(crawl.crawlRating){
-         $('#crawl-rating').html(crawl.crawlRating);
-         }
-         else{
-         $('#crawl-rating').html("No Rating");
-         }*/
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    console.log("Has ratings:" +hasRatings);
 
     //Ratings
 
-    casaDataRef.child($('#pub-routes').val()).child('ratings').on('value', function (snapshot) {
-        snapshot.forEach(function(childSnapshot) {
-            var data = childSnapshot.exportVal();
-            var rating = data.crawlRating;
-            console.log("Rating"+rating);
-            ratings.push(rating);
+    if(hasRatings != false)
+    {
+        casaDataRef.child($('#pub-routes').val()).child('ratings').on('value', function (snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var data = childSnapshot.exportVal();
+                var rating = data.crawlRating;
+                console.log("Rating"+rating);
+                ratings.push(rating);
+            });
+            var total = 0;
+            for(var i = 0; i < ratings.length; i++) {
+                console.log(ratings[i]);
+                total +=  parseInt(ratings[i]);
+                console.log("Total: " + total);
+            }
+            var avg = Math.round(total / ratings.length);
+            console.log("Average: " + avg);
+            $('#crawl-rating').html (avg);
+            console.log("Has ratings:" +hasRatings);
         });
-        var total = 0;
-        for(var i = 0; i < ratings.length; i++) {
-            console.log(ratings[i]);
-            total +=  parseInt(ratings[i]);
-            console.log("Total: " + total);
-        }
-        var avg = Math.round(total / ratings.length);
-        console.log("Average: " + avg);
-        $('#crawl-rating').html (avg);
-    });
+    }
 
 
-//Calculate rating avg
+
 
 
 
@@ -149,6 +154,7 @@ function pullRouteInfo(){
     var letterCount = 0;
 
     casaDataRef.child($('#pub-routes').val()).child('waypoints').on('value', function (snapshot) {
+
         snapshot.forEach(function(childSnapshot) {
 
             var data = childSnapshot.exportVal();
