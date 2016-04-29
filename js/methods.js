@@ -158,7 +158,7 @@ function addMarker(location, map, pub) {
             +'<input class="button button-blackboard markerbut" id="marker-add" type="button" value="Add Pub" >');
         $('#marker-add').on("click",function () {
             $(this).hide();
-            addPub(pub.location,pub.name);
+            addPub(location,pub.name);
         });
         infowindow.open(map, marker);
     });
