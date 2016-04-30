@@ -87,27 +87,33 @@
     </footer>
 
     <div id="popupBoxTwoPosition">
-        <div class="popupBoxTwoWrapper">
-            <div class="blackboard">
+        <div class="popupBoxTwoWrapper grid-container">
+            <div class="grid-100 grid-parent  blackboard">
 
-                <form id = "RatingForm" action = "#" method = "get">
+
                     <h2>Rate Pub Crawl:</h2>
-                    <img style="align-content: center" src="../img/family_guy_barfing.gif" alt="Good times.." title ="Good times..."/>
-                    <p>Crawl Name: <span class="crawlname"></span></p>
-                    <p>Location: <span class="crawlLocation"></span></p>
-                    <p>Rating:
-                        <select id = "Rating">
-                            <option value="1">*</option>
-                            <option value="2">**</option>
-                            <option value="3">***</option>
-                            <option value="4">****</option>
-                            <option value="5">*****</option>
-                        </select>
-                    </p>
-                    <br/>
-                    <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
-                    <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
+                    <figure class="blank-page-post-thumbnail grid-30 grid-parent">
+                        <img src="../img/family_guy_barfing.gif" alt="Good times.." title ="Good times..."/>
+                    </figure>
+                    <section class="blank-page-post-content grid-80 grid-parent">
+                        <form id = "RatingForm" action = "#" method = "get">
+                        <p>Crawl Name: <span class="crawlname"></span></p>
+                        <p>Location: <span class="crawlLocation"></span></p>
+                        <p>Rating:
+                            <select id = "Rating">
+                                <option value="1">*</option>
+                                <option value="2">**</option>
+                                <option value="3">***</option>
+                                <option value="4">****</option>
+                                <option value="5">*****</option>
+                            </select>
+                        </p>
+                        <br/>
+                        <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
+                        <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
                 </form>
+                    </section>
+
             </div>
         </div>
     </div>

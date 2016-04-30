@@ -318,11 +318,13 @@ input[type="button"]:focus {
     background-color: rgba(0,0,0,0.7);
     display: none;
 }
-.popupBoxTwoWrapper{
+.popupBoxTwoWrapper {
     width: 500px;
+    min-width: 330px;
     padding-bottom: 100px;
-    margin: 50px auto;
+    margin: 20px auto;
     text-align: left;
+
 }
 .popupBoxContent{
     background-color: #ECECED;
