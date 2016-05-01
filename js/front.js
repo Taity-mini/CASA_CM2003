@@ -114,6 +114,9 @@ function toggle_visibility(id) {
         e.style.display = 'block';
 }
 
+/*
+* Could've just had this minified but you probably wanted the source so... here you go
+* */
 var html = '<div id="popupBoxTwoPosition"><div class="popupBoxTwoWrapper"><img src="img/Drink-Father-Jack.gif"></div></div>';
 var easter_egg = new Konami();
 easter_egg.code = function() {
