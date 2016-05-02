@@ -1,5 +1,5 @@
 /**
- * Created by Andrew on 16/04/2016.
+ * Created by Andrew Taigt on 16/04/2016.
  * Display Map Javascript file
  * CASA - Pub Crawl Web app
  */
@@ -20,10 +20,11 @@ var defaultCenter;
 /*
 * Current URL Structure:
 *
-* ./Display/?id=UNIQUE_FIREBASE_ID - gives you firebase id for route and waypoint info
+* ./Display/?id=UNIQUE_FIREBASE_ID - gives you firebase id for route, places and waypoint info
 *
 * */
 
+//Function used to get value from URL parameter, takes in field name as input
 function GetURLParameter(sParam)
 {
     var sPageURL = window.location.search.substring(1);
@@ -38,10 +39,15 @@ function GetURLParameter(sParam)
         }
     }
 }
+
+
+//Run setup function bellow
 setup();
+
 
 function setup()
 {
+    //check for id field..
     fireBaseID = GetURLParameter("id");
     getFireBaseDB(fireBaseID);
 }
@@ -83,6 +89,7 @@ function getFireBaseDB(ID)
                 location: location,
                 stopover: stopover
             });
+            //get placenames for all pubs
             placesNames.push({
                 pubName: name
             })
@@ -98,7 +105,7 @@ function getFireBaseDB(ID)
     });
 }
 
-
+//Display google maps (initial setup - callback function)
 function initMap() {
     var myCenter;
     var myOptions = {
@@ -114,24 +121,15 @@ function initMap() {
         fullscreenControl: true
     };
 
-
+    //Create new map
     map = new google.maps.Map(document.getElementById('map'), myOptions);
+    //Related map services
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
     geocoder = new google.maps.Geocoder;
 
 
-
-    //Markers
-    //Marker Icon
-    var icon = {
-        url: "../img/bar.png", // url
-        size: new google.maps.Size(32, 37), // size
-        origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
-    };
-
-
+    //Add pub next buttoned to the top right of the map (overlay)
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('pubNext'));
 
     /*Listeners*/
@@ -139,37 +137,43 @@ function initMap() {
     /*Next pub event */
     var count = 0;
     google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
-        $('#pubNext').val("Next Pub");
+        $('#pubNext').val("Next Pub"); //
         var max  = markers.length+ 1;
 
         if(count <= markers.length)
         {
+            //Get default map center to reset if required
             if(count == 0)
-            {
+            {   
                 defaultCenter =map.getCenter();
             }
 
+            //Display current pub in tweets section
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
-
+            //Get tweets from curret pub on crawl
             displayTweets(placesNames[count].pubName);
+            //get latitude and longitude from route leg
             var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
 
-
+            //Center and zoom on next pub
             map.setCenter(nextPub);
             map.setZoom(16);
             count++;
         }
         else if(count == max)
         {
-
+            //Remove next pub and replace with ratings button
             map.controls[google.maps.ControlPosition.TOP_RIGHT].pop(document.getElementById('pubNext'));
             toggle_visibility('ratings');
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
-
+            
+            //Display current pub in tweets section
             $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
 
             displayTweets(placesNames[count].pubName)
 
+            //Go to final pub on the crawl
+            //get latitude and longitude from route leg
             var nextPub = new google.maps.LatLng(route.legs[count-1].end_location.lat(), +route.legs[count-1].end_location.lng());
             map.setCenter(nextPub);
             map.setZoom(16);
@@ -182,7 +186,6 @@ function initMap() {
 //Ratings Box Popup
 function toggle_visibility(id) {
     var e = document.getElementById(id);
-   // $("#crawlrating").html(crawlName);
 
     if(e.style.display == 'block')
         e.style.display = 'none';
@@ -199,37 +202,40 @@ function displayTweets(placeName)
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             var tweets = JSON.parse(xhttp.responseText);
             var tweetstring = "";
-            //Limit tweets by 5 and display in list
+            
             if(tweets.length > 0)
             {
+                //Limit tweets by 5 and display in list
                 for (var i = 0; i < 5; i++) {
+                    
                     tweetstring += "<blockquote class='tweet'><p>" + tweets[i].name + "</p>";
-
-
+                    
+                    //Split up tweet content
                     var words = tweets[i].text.split(/\s+/);
+                    
+                    //Loop through tweet content and display links
                     for (var i=0; i<words.length; i++) {
                         var word = words[i];
                         if (word.substr(0, 7) == 'http://' || word.substr(0, 8) == 'https://') {
                             words[i] = '<a href="'+word+'">'+word+'</a> ';
                         }
                     }
+                    //Join all words and links together
                     var text = words.join(' ');
-
-
                     tweetstring += "<p>" + text + "</p></blockquote>";
 
-
-
                 }
+                //Display Tweets
                 document.getElementById("twitter").innerHTML = tweetstring;
             }
-            else
+            else //No tweets? Then display relevant message
             {
                 document.getElementById("twitter").innerHTML = "No tweets found for this pub";
             }
 
         }
     };
+    //Send request to Node server
     xhttp.open("GET", "http://rgunodeapp.azurewebsites.net/?q="+placeName, true);
     xhttp.send();
 }
@@ -237,23 +243,24 @@ function displayTweets(placeName)
 // Add rating to route on fire base
 
 $(document).ready(function(){
+    //Check if rating submit button has been clicked.
     $('#RatingSubmit').on("click", function()
     {
+        //call rating function bellow
         addRating();
+        //Done with rating? Then redirect user to home page
         window.location.replace('../');
     });
-    $('#Rating').ddslick({
-        onSelected: function(selectedData){
-            //callback function: do something with selectedData;
-        }
-    });
+
 });
 
+// Add rating from pop up div to firebase
 function addRating() {
+    //Get value from dropdown
     var rating = $('#Rating').val();
-
+    //Push rating into firebase
     var ratingRef = casaDataRef.child(fireBaseID);
     casaDataRef.child(fireBaseID).child('ratings').push({crawlRating: rating});
-
+    //close popup div
     toggle_visibility('popupBoxTwoPosition');
 }

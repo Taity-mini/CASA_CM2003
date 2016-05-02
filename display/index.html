@@ -87,16 +87,16 @@
         <div class="shelf-edge"></div>
     </footer>
 
+    <!--Ratings Popup Div-->
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper grid-container">
             <div class="grid-100 grid-parent  blackboard">
-
-
                     <h2>Rate Pub Crawl:</h2>
                     <figure class="blank-page-post-thumbnail grid-30 grid-parent">
                         <img src="../img/family_guy_barfing.gif" alt="Good times.." title ="Good times..."/>
                     </figure>
                     <section class="blank-page-post-content grid-80 grid-parent">
+                        <!--Ratings route form-->
                         <form id = "RatingForm" action = "#" method = "get">
                         <p>Crawl Name: <span class="crawlname"></span></p>
                         <p>Location: <span class="crawlLocation"></span></p>
@@ -110,7 +110,9 @@
                             </select>
                         </p>
                         <br/>
+                            <!--Submit Ratings to firebase-->
                         <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
+                            <!--Close Div-->
                         <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
                 </form>
                     </section>

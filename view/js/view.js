@@ -18,16 +18,19 @@ $(document).ready(function(){
 
     pullLocations();
 
+    //Change locations
     $('#pub-locations').change(function(){
         clearRoute();
         pullRoutes($('#pub-locations option:selected').text());
     });
 
+    //Change route
     $('#pub-routes').change(function(){
         clearRoute();
         pullRouteInfo();
     });
 
+    //Redirect to display page with route id on start route clicked
     $('#start-form').on('submit',function()
     {
         window.location.replace('../display/?id=' + $('#pub-routes').val());
@@ -106,9 +109,11 @@ function pullRouteInfo(){
         var crawl = snapshot.child($('#pub-routes').val()).val();
         var rating = snapshot.child($('#pub-routes').val());
 
+        //Check if route has rating
         hasRatings = rating.hasChild("ratings");
         if(!hasRatings)
         {
+            //No rating? then display this..
             $('#crawl-rating').html("No Rating");
         }
         $('#crawl-name').html(crawl.crawlName);
@@ -117,29 +122,30 @@ function pullRouteInfo(){
     });
 
 
-    //Ratings
+/*  Ratings*/
 
+    //If route does have ratings..
     if(hasRatings != false)
     {
+        //Cycle through all the ratings for this route
         casaDataRef.child($('#pub-routes').val()).child('ratings').on('value', function (snapshot) {
             snapshot.forEach(function(childSnapshot) {
                 var data = childSnapshot.exportVal();
                 var rating = data.crawlRating;
+                //push to ratings array
                 ratings.push(rating);
             });
             var total = 0;
+            //total/count all ratings for route
             for(var i = 0; i < ratings.length; i++) {
                 total +=  parseInt(ratings[i]);
             }
+            //calculate average rating for route
             var avg = Math.round(total / ratings.length);
+            //Display average rating
             $('#crawl-rating').html (avg);
         });
     }
-
-
-
-
-
 
 
     //letter array for easily identify the pub names
