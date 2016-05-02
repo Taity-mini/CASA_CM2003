@@ -27,7 +27,7 @@
 <body>
 <!-- Navigation container starts here holds app logo/tile -->
     <nav class="grid-container text-center">
-        <a class="site-title" href="../"><img src="../img/bottlecap.png"></a>
+        <a class="site-title" href="../"><img src="../img/bottlecap.png" alt="Pub crawl bottle cap logo"></a>
     </nav>
 
     <!-- Blackboard container starts here holds options to generate a pub crawl and map for displaying route -->
@@ -46,7 +46,7 @@
                 <input class="button-blackboard" id="route-submit" type="button" value="Generate">
             </div>
 
-            <input class="controls" id="location-search" type="text" placeholder="Search">
+            <input class="controls" id="location-search" type="text" placeholder="Search" title="Location search">
             <div id="map"></div>
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
@@ -62,7 +62,7 @@
             <div class="grid-container text-center">
                 <ul class="pub-list" id="route-list"></ul>
                 <form  id="start-form">
-                    <p>Crawl Name <input type="text" class="crawlname" id="crawlname" required></p>
+                    <p>Crawl Name <input type="text" class="crawlname" id="crawlname" required title="Crawl name"></p>
                     <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
                 </form>
             </div>
@@ -75,8 +75,8 @@
             <div class="footer-left">
                 <a href="">Terms and Conditions</a>
             </div>
-            <div class="footer-right">
-                <a class="footer-logo" href="https://github.com/Taity-mini/CASA_CM2003" target="_blank"></a>
+            <div class="footer-right" title="CASA group logo">
+                <a class="footer-logo" href="https://github.com/Taity-mini/CASA_CM2003" target="_blank" title="CASA group logo"></a>
             </div>
         </div>
         <div class="shelf-edge"></div>

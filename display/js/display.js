@@ -235,11 +235,17 @@ function displayTweets(placeName)
 }
 
 // Add rating to route on fire base
+
 $(document).ready(function(){
     $('#RatingSubmit').on("click", function()
     {
         addRating();
         window.location.replace('../');
+    });
+    $('#Rating').ddslick({
+        onSelected: function(selectedData){
+            //callback function: do something with selectedData;
+        }
     });
 });
 
