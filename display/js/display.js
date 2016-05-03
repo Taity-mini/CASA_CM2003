@@ -1,5 +1,5 @@
 /**
- * Created by Andrew Taigt on 16/04/2016.
+ * Created by Andrew Tait on 16/04/2016.
  * Display Map Javascript file
  * CASA - Pub Crawl Web app
  */
