@@ -128,7 +128,8 @@ footer{
     position: relative;
     display: inline-block;
     font-size: 26px;
-    padding: 0 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 
