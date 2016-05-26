@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/unsemantic.min.css">
 
     <!--Custom CSS-->
-    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <!--JQuery CDN-->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
@@ -42,8 +42,8 @@
                 <label>Pubs <select class="controls-select" id="num-pubs"></select></label>
             </div>
             <div id="controls-buttons-container">
-                <input class="button-blackboard" id="route-reset" type="button" value="Clear Route">
-                <input class="button-blackboard" id="route-submit" type="button" value="Generate">
+                <input id="route-reset" type="button" value="Clear Route">
+                <input id="route-submit" type="button" value="Generate">
             </div>
 
             <input class="controls" id="location-search" type="text" placeholder="Search" title="Location search">
@@ -63,7 +63,7 @@
                 <ul class="pub-list" id="route-list"></ul>
                 <form  id="start-form">
                     <p>Crawl Name <input type="text" class="crawlname" id="crawlname" required title="Crawl name"></p>
-                    <input class="button button-blackboard" id="start-route" type="submit" value="Start Route">
+                    <input id="start-route" type="submit" value="Start Route">
                 </form>
             </div>
         </div>

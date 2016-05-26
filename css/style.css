@@ -260,8 +260,12 @@ input[type="button"] {
     white-space: nowrap;
     background-color: black;
     border-radius: 4px;
+    cursor: pointer;
     border: 1px solid #bbb;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    color: white;
+    font-family: chawp;
+}
 .button:hover,
 button:hover,
 input[type="submit"]:hover,
@@ -272,16 +276,16 @@ button:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
-    color: #EB7D2F;
-    border-color: #888;
-    outline: 0; }
-.button-blackboard{
-    font-family: "chawp", "serif";
-    color: white;
-}
-.button-blackboard:hover {
     background-color: white;
     color: black;
+    outline: 0;
+}
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus{
+    color: #EB7D2F;
 }
 
 .button-left{
