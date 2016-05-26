@@ -4,7 +4,7 @@
 body{
     background-color: #59323C;
     font-family: "chawp","serif";
-    background-image: url("../img/wood.jpg");
+    background-image: url("../img/wood.svg");
     height: 100%;
     margin: 0;
     padding: 0;
@@ -64,7 +64,7 @@ footer{
     float: right;
     height: 80px;
     width: 76px;
-    background: transparent url('../img/logo_spritesheet.png') no-repeat;
+    background: transparent url('../img/logo_spritesheet.svg') no-repeat;
     background-position: -5px -5px;
 }
 .footer-logo:hover{
