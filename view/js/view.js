@@ -108,7 +108,7 @@ function pullRouteInfo(){
     casaDataRef.once("value", function(snapshot) {
         var crawl = snapshot.child($('#pub-routes').val()).val();
         var rating = snapshot.child($('#pub-routes').val());
-
+        console.log("Rating"+rating);
         //Check if route has rating
         hasRatings = rating.hasChild("ratings");
         if(!hasRatings)
@@ -127,6 +127,7 @@ function pullRouteInfo(){
     //If route does have ratings..
     if(hasRatings != false)
     {
+        ratings = []; //clear any previous ratings first..
         //Cycle through all the ratings for this route
         casaDataRef.child($('#pub-routes').val()).child('ratings').on('value', function (snapshot) {
             snapshot.forEach(function(childSnapshot) {
@@ -139,12 +140,16 @@ function pullRouteInfo(){
             //total/count all ratings for route
             for(var i = 0; i < ratings.length; i++) {
                 total +=  parseInt(ratings[i]);
+                console.log("Total:" + total);
             }
+            console.log("Rating Length " + ratings.length);
             //calculate average rating for route
-            var avg = Math.round(total / ratings.length);
+            var avg =Math.round((total / ratings.length));
+            console.log("Average: " + avg);
             //Display average rating
             $('#crawl-rating').html (avg);
         });
+        console.log("Rating Length " + ratings.length);
     }
 
 
