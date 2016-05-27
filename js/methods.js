@@ -81,7 +81,7 @@ function searchRadius(place,numPubs,radius,mapMarkers){
 
             }
             map.setCenter(place);
-            map.setZoom(13);
+            //map.setZoom(13);
             if(mapMarkers == false) {
                 calculateAndDisplayRoute(directionsDisplay, directionsService);
             }
@@ -188,9 +188,9 @@ var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); /
 
 function push(){
 
-    var waypoints = [];
-    waypoints = jQuery.extend([], markers);
-
+    //waypoints = [];
+    //waypoints = jQuery.extend([], markers);
+    console.log(waypoints);
     var crawlName = $('.crawlname').val();
     var crawlLocation = $('#location-search').val();
 

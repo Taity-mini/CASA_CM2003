@@ -9,9 +9,12 @@ var markers = [];
 var directionsService;
 var directionsDisplay;
 
-$(document).ready(function(){
 
+
+$(document).ready(function(){
+    resetForms();
     $('#route').hide();
+
 
     //Add number of pubs to the dropdown
     populateNumPubs(10);// max can only be 10 due to the directions request maximum waypoints being 8
@@ -24,13 +27,42 @@ $(document).ready(function(){
 
         //Need to resize the map again otherwise when #route is shown it is blank
         google.maps.event.trigger(map, 'resize');
-
+        console.log("Zoom Level: " + map.getZoom());
         var numPubs = $('#num-pubs').val();
         var place = map.getCenter();
         //var place = {lat: 57.146904, lng:-2.097521};
         //var place = map.position;
-        searchRadius(place,numPubs,2000,false);
+        //Get radius based on current zoom level (x100) and deduct it from 2000
 
+        var radius = "";
+        var zoomLevel = map.getZoom();
+
+
+        if(zoomLevel == 11)
+        {
+            radius = 2000 + (numPubs * 20);
+            console.log("Radius:" + radius);
+
+        }
+
+
+        else if (zoomLevel < 11)
+        {
+            radius = (2000+ (numPubs * 20))+((zoomLevel* 50)) ;
+            console.log("Radius:" + radius);
+        }
+
+        else if(zoomLevel > 11)
+        {
+             radius = ((2000 +(numPubs * 15))-(zoomLevel* 80));
+            console.log("Radius:" + radius);
+
+        }
+
+
+        //var radius = (2000-((map.getZoom())* 100));
+
+        searchRadius(place,numPubs,radius,false);
     });
 
     $('#route-reset').on("click",function(){
@@ -45,6 +77,11 @@ $(document).ready(function(){
     });
 });
 
+//Reset inputs if page is refreshed..
+function resetForms() {
+    document.getElementById('location-search').value="";
+    document.getElementById('crawlname').value="";
+}
 /*
  * Google maps
  * */
