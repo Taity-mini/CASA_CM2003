@@ -5,6 +5,7 @@ A web application that allows the user to create or generate as pub crawl using 
 
 #Web App URL
 http://casa-cm2003.azurewebsites.net/
+http://taity-mini.github.io/CASA_CM2003/
 
 # Libraries
 CSS Framework: http://unsemantic.com/
